@@ -1,6 +1,6 @@
-package kg.peaksoftlms.peaksoftlms.temp;
+package kg.peaksoftlms.peaksoftlms.db.repository;
 
-import kg.peaksoftlms.peaksoftlms.model.User;
+import kg.peaksoftlms.peaksoftlms.db.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package kg.peaksoftlms.peaksoftlms.model.course.lesson;
+package kg.peaksoftlms.peaksoftlms.db.model.lesson;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,14 +11,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class Presentation {
+public class Video {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    private String presentationName;
-    private String description;
-    private String presentation;
-    @ManyToOne
+    private String videoName;
+    private String video;
+   @ManyToOne
     private Lesson lesson;
-
 }

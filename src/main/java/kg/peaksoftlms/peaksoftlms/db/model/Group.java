@@ -1,6 +1,5 @@
-package kg.peaksoftlms.peaksoftlms.model;
+package kg.peaksoftlms.peaksoftlms.db.model;
 
-import kg.peaksoftlms.peaksoftlms.model.course.Course;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
-
-import static javax.persistence.CascadeType.*;
-import static javax.persistence.FetchType.EAGER;
 
 @Entity @Table(name = "groups")
 @AllArgsConstructor

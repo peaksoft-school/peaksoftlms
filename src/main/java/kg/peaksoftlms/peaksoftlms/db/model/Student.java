@@ -1,7 +1,6 @@
-package kg.peaksoftlms.peaksoftlms.model;
+package kg.peaksoftlms.peaksoftlms.db.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kg.peaksoftlms.peaksoftlms.model.course.Course;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,23 +18,23 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class Teacher {
-
+public class Student {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Have to create new responsible person")
-    private String teacherName;
+    @NotBlank (message = "Have to create new student")
+    private String studentName;
     @NotBlank (message = "Have to write last name")
-    private String teacherLastName;
-    @Email (message = "wrong E-mail address, please check it again")
-    private String teacherEmail;
+    private String studentLastName;
+    @Email (message = "wrong E-mail, please give the correct E-mail")
+    private String studentEmail;
     @JsonProperty
     private String password;
-    private String teacherImg;
+    private String studentImg;
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
+
     @ManyToMany
     @JoinColumn(name = "id")
-    private List<Course> course;
+    private List<Group> group;
 }

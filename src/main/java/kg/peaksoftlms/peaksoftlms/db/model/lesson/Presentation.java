@@ -1,4 +1,4 @@
-package kg.peaksoftlms.peaksoftlms.model.course.lesson;
+package kg.peaksoftlms.peaksoftlms.db.model.lesson;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,21 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-import static javax.persistence.CascadeType.*;
-import static javax.persistence.FetchType.LAZY;
-
 @Entity @Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class Task {
+public class Presentation {
     @Id
-//    @OneToMany(fetch =LAZY, cascade = {DETACH, MERGE, PERSIST, REFRESH})
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    private String taskName;
-    private String task;
-    private String img;  //can be byte
+    private String presentationName;
+    private String description;
+    private String presentation;
     @ManyToOne
     private Lesson lesson;
 

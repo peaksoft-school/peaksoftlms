@@ -1,7 +1,6 @@
-package kg.peaksoftlms.peaksoftlms.model.course;
+package kg.peaksoftlms.peaksoftlms.db.model;
 
-import kg.peaksoftlms.peaksoftlms.model.Teacher;
-import kg.peaksoftlms.peaksoftlms.model.course.lesson.Lesson;
+import kg.peaksoftlms.peaksoftlms.db.model.lesson.Lesson;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

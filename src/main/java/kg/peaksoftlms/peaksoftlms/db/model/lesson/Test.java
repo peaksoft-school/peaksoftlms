@@ -1,4 +1,4 @@
-package kg.peaksoftlms.peaksoftlms.model.course.lesson;
+package kg.peaksoftlms.peaksoftlms.db.model.lesson;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,12 +11,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class Video {
+public class Test {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    private String videoName;
-    private String video;
-   @ManyToOne
+    private String testName;
+    private String question;
+    private String answer;
+
+    //    @OneToMany(fetch =LAZY, cascade = {DETACH, MERGE, PERSIST, REFRESH})
+     @ManyToOne
     private Lesson lesson;
 }

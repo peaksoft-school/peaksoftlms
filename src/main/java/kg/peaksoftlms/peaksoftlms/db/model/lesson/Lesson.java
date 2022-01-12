@@ -1,9 +1,5 @@
-package kg.peaksoftlms.peaksoftlms.model.course.lesson;
+package kg.peaksoftlms.peaksoftlms.db.model.lesson;
 
-import kg.peaksoftlms.peaksoftlms.model.course.lesson.Video;
-import kg.peaksoftlms.peaksoftlms.model.course.lesson.Presentation;
-import kg.peaksoftlms.peaksoftlms.model.course.lesson.Task;
-import kg.peaksoftlms.peaksoftlms.model.course.lesson.Test;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import java.util.List;
-
-import static javax.persistence.CascadeType.*;
-import static javax.persistence.CascadeType.REFRESH;
-import static javax.persistence.FetchType.EAGER;
 
 @Entity  @Table
 @AllArgsConstructor
