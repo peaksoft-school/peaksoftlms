@@ -13,6 +13,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.REFRESH;
+
 
 @Entity @Table
 @AllArgsConstructor
@@ -34,7 +37,7 @@ public class Student {
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
 
-    @ManyToMany
+    @ManyToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
     @JoinColumn(name = "id")
     private List<Group> group;
 }

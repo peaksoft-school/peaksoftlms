@@ -11,6 +11,9 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.REFRESH;
+
 @Entity @Table
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,10 +30,10 @@ public class Course {
     private String img;
     private int price;
     private LocalDate dateOfCreate;
-    @ManyToOne
-    private Teacher teacher;
+    @ManyToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    private List<Teacher> teacher;
 
-    @OneToMany
+    @OneToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List <Lesson> lesson;
 
 

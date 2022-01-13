@@ -24,6 +24,4 @@ public class User {
     private String password;
     @ManyToMany(fetch = EAGER, cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Role> role;
-//    private Course course;
-//    private String group;
 }

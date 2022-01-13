@@ -10,6 +10,9 @@ import javax.validation.constraints.NotBlank;
 
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.REFRESH;
+
 @Entity  @Table
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,13 +24,13 @@ public class Lesson {
     private Long id;
     @NotBlank
     private String lessonName;
-    @OneToMany(mappedBy ="lesson")
+    @OneToMany(mappedBy ="lesson",cascade = ALL)
     private List<Test> tests;
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson",cascade = ALL)
     private List<Task> tasks;
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson",cascade = ALL)
     private List<Video> videos;
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson",cascade = ALL)
     private List<Presentation> presentations;
     private String link;
 
