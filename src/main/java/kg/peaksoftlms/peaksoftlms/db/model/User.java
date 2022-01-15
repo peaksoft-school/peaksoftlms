@@ -26,4 +26,16 @@ public class User {
     private List<Role> role;
 //    private Course course;
 //    private String group;
+
+
+    public User(@Email(message = "Cannot be empty") String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(@Email(message = "Cannot be empty") String email, String password, List<Role> role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }
