@@ -1,15 +1,9 @@
 package kg.peaksoftlms.peaksoftlms;
 
-import kg.peaksoftlms.peaksoftlms.model.Role;
-import kg.peaksoftlms.peaksoftlms.model.User;
-import kg.peaksoftlms.peaksoftlms.temp.RoleRepository;
-import kg.peaksoftlms.peaksoftlms.temp.UserRepository;
-import org.springframework.boot.CommandLineRunner;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
-import java.util.Arrays;
 
 @SpringBootApplication
 public class PeaksoftlmsApplication {
