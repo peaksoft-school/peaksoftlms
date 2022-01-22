@@ -27,5 +27,4 @@ public class PeaksoftlmsApplication {
 ////			repository.save(user);
 ////			repository.save(user2);
 //		};
-
 }

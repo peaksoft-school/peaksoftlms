@@ -1,10 +1,7 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
 import kg.peaksoftlms.peaksoftlms.db.model.lesson.Lesson;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-
+@ToString
 public class Course {
 
     @Id
@@ -27,12 +24,10 @@ public class Course {
     private String img;
     private int price;
     private LocalDate dateOfCreate;
-    @ManyToOne
-    private Teacher teacher;
+    @ManyToMany
+    @JoinColumn(name = "id")
+    private List<Teacher> teacher;
 
     @OneToMany
     private List <Lesson> lesson;
-
-
-
 }
