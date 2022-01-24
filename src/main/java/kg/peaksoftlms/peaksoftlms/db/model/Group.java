@@ -28,7 +28,8 @@ public class Group {
     private LocalDate dateOfCreate;
     @NotBlank(message = "you must write description!")
     private String description;
-    @OneToMany(fetch = EAGER, cascade = ALL)
+    @ManyToMany(fetch = EAGER, cascade = ALL)
+    @JoinTable(name = "groups_student")
     private List<Student> students;
     @OneToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Course> courses;

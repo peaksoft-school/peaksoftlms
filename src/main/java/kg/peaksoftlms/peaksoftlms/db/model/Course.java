@@ -14,15 +14,17 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.REFRESH;
 
-@Entity @Table
+@Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 
 public class Course {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
     private String name;
@@ -31,11 +33,9 @@ public class Course {
     private int price;
     private LocalDate dateOfCreate;
     @ManyToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    @JoinTable(name = "course_teacher")
     private List<Teacher> teacher;
 
-    @OneToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
-    private List <Lesson> lesson;
-
-
-
+    @OneToMany(mappedBy = "course", cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    private List<Lesson> lesson;
 }

@@ -17,27 +17,28 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.REFRESH;
 
 
-@Entity @Table
+@Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class Teacher {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Have to create new responsible person")
     private String teacherName;
-    @NotBlank (message = "Have to write last name")
+    @NotBlank(message = "Have to write last name")
     private String teacherLastName;
-    @Email (message = "wrong E-mail address, please check it again")
+    @Email(message = "wrong E-mail address, please check it again")
     private String teacherEmail;
     @JsonProperty
     private String password;
     private String teacherImg;
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
-    @ManyToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
-    @JoinColumn()
+    @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Course> course;
 }
