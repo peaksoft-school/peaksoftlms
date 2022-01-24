@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/authentication").permitAll()
+                .antMatchers( "/api/test/**").permitAll()
                 .antMatchers("/api/admin").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated();
         http.logout().logoutUrl("/api/logout") //URL-адрес, запускающий выход из системы (по умолчанию "/logout").
