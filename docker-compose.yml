@@ -1,0 +1,25 @@
+version: '3.1'
+
+volumes:
+  db_peaksoftlms:
+    driver: local
+services:
+  app:
+    container_name: peaksoftlms
+    image: meta/peaksoftlms
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - pg
+  pg:
+    container_name: pg
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSRGRES_DB=peaksoftlms
+    volumes:
+      - db_peaksoftlms:/var/lib/postgresql/data
