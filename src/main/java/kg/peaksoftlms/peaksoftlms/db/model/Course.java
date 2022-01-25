@@ -30,8 +30,6 @@ public class Course {
     @ManyToOne
     private Teacher teacher;
 
-    @OneToMany
-    private List <Lesson> lesson;
 
 
 

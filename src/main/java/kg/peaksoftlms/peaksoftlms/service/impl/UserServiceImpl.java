@@ -1,6 +1,7 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
 import kg.peaksoftlms.peaksoftlms.db.model.Role;
+import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.RoleRepository;
 import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
@@ -10,9 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,16 @@ public class UserServiceImpl implements UserService {
         }
         user.setRole(roleList);
         return userRepository.save(user);
+    }
+
+    @Override
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -61,4 +74,30 @@ public class UserServiceImpl implements UserService {
         log.info("Fetching all users");
         return userRepository.findAll();
     }
-}
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<User> getUserByName(String name) {
+        return userRepository.findUserByName(name);
+    }
+
+//    @Override
+//    public List<Teacher> findAllByNameContaining(String name) {
+//        List<User> users = userRepository.findAllByNameContainingAndRole(name, "STUDENT_ROLE");
+//        List<Teacher> teachers = new ArrayList<>();
+//        for (User user : users) {
+//            Teacher teacher = new Teacher(user);
+//            teachers.add(teacher);
+//        }
+//        return teachers;
+    }
+

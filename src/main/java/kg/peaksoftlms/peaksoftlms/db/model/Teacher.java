@@ -14,11 +14,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-@Entity @Table
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class Teacher {
+public class Teacher extends User
+ {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -37,4 +38,8 @@ public class Teacher {
     @ManyToMany
     @JoinColumn(name = "id")
     private List<Course> course;
+    @OneToOne
+    private User user;
+    public Teacher(User user) {
+    }
 }
