@@ -1,6 +1,8 @@
 package kg.peaksoftlms.peaksoftlms.mapper;
 
-import kg.peaksoftlms.peaksoftlms.db.dto.CourseDTO;
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseRequestDTO;
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseResponseDTO;
+import kg.peaksoftlms.peaksoftlms.db.dto.TeacherRequestDTO;
 import kg.peaksoftlms.peaksoftlms.db.model.Course;
 import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.repository.TeacherRepository;
@@ -20,18 +22,18 @@ public class CourseMapper {
     private final TeacherRepository teacherRepository;
 
     @Mappings({@Mapping(target = "Courseid", source = "id")})
-    public Course courseFromCourseRequestDTO(CourseDTO courseDTO) {
-        if (courseDTO == null) {
+    public Course courseFromCourseResponseDTO(CourseResponseDTO courseResponseDTO) {
+        if (courseResponseDTO == null) {
             return null;
         }
         Course course = new Course();
         //course.setId(courseDTO.getId());
-        course.setName(courseDTO.getName());
-        course.setDescription(courseDTO.getDescription());
-        course.setImg(courseDTO.getImg());
-        course.setDateOfCreate(courseDTO.getDateOfCreate());
+        course.setName(courseResponseDTO.getName());
+        course.setDescription(courseResponseDTO.getDescription());
+        course.setImg(courseResponseDTO.getImg());
+        course.setDateOfCreate(courseResponseDTO.getDateOfCreate());
         List<Teacher> teacherList = new ArrayList<>();
-        for (Teacher t : courseDTO.getTeacher()) {
+        for (TeacherRequestDTO t : courseResponseDTO.getTeacher()) {
             teacherList.add(teacherRepository.getById(t.getId()));
         }
         course.setTeacher(teacherList);

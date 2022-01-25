@@ -1,6 +1,7 @@
 package kg.peaksoftlms.peaksoftlms.api;
 
-import kg.peaksoftlms.peaksoftlms.db.dto.CourseDTO;
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseRequestDTO;
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseResponseDTO;
 import kg.peaksoftlms.peaksoftlms.db.model.Course;
 import kg.peaksoftlms.peaksoftlms.mapper.CourseMapper;
 import kg.peaksoftlms.peaksoftlms.service.courseService.CourseService;
@@ -16,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/course")
+@RequestMapping("/api/admin/courses")
 @AllArgsConstructor
 @Slf4j
 public class CourseApi {
@@ -25,13 +26,11 @@ public class CourseApi {
     private final CourseMapper courseMapper;
 
     @PostMapping(value = "")
-    public ResponseEntity<Course> addNewCourse(@Valid @RequestBody CourseDTO courseDTO) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().
-                path("/api/admin/course").toUriString());
+    public ResponseEntity<Course> addNewCourse(@Valid @RequestBody CourseResponseDTO courseResponseDTO) {
         Course registeredNewCourse = courseService
-                .saveCourse(courseMapper.courseFromCourseRequestDTO(courseDTO));
+                .saveCourse(courseMapper.courseFromCourseResponseDTO(courseResponseDTO));
         log.info("Save course: {}", registeredNewCourse);
-        return ResponseEntity.created(uri).body(registeredNewCourse);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/courses")
