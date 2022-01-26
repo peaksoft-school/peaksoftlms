@@ -18,5 +18,5 @@ public class CourseRequest {
     private String description;
     private String img;
     private LocalDate dateOfCreate;
-    private List<TeacherRequest> teacher;
+    private List<TeacherObject> teacher;
 }

@@ -11,7 +11,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Entity
@@ -36,9 +35,8 @@ public class Teacher {
     private String teacherImg;
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
-//    @ManyToMany(mappedBy = "teacher")
-//    @JoinColumn(name = "id")
+
+//    @JsonIgnore
+//    @ManyToMany(fetch = EAGER, mappedBy = "teacher")
 //    private List<Course> course;
-    @ManyToMany(mappedBy = "teacher")
-    private List<Course> course;
 }
