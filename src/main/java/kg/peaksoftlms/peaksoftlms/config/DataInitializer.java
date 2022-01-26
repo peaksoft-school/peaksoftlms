@@ -76,7 +76,7 @@ public class DataInitializer {
         course.setDateOfCreate(LocalDate.of(2022, 01, 12));
         course.setLesson(List.of(lesson1));
 
-        lesson1.setCourse(course);//add
+        //lesson1.setCourse(course);//add
 
         Group group = new Group();
         group.setName("Java batch-5");
