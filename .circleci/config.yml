@@ -3,6 +3,7 @@ version: 2.1 # use CircleCI 2.0
 orbs:
   aws-ecr: circleci/aws-ecr@7.0.0
   eb: circleci/aws-elastic-beanstalk@2.0.1
+  docker: circleci/docker@2.0.1
 
 jobs:
   deploy-to-beanstalk:
@@ -18,24 +19,18 @@ jobs:
             eb deploy -l $CIRCLE_SHA1
 
 workflows:
-  build_image_and_push_to_ecr_and_deploy_to_elastic_beanstalk:
+  build_image_and_push_to_dockerhub_and_deploy_to_elastic_beanstalk:
     jobs:
-#      - aws-ecr/build-and-push-image:
-#          name: 'build-and-push-image-to-production'
-#          aws-access-key-id: AWS_ACCESS_KEY_ID
-#          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-#          region: AWS_REGION
-#          account-url: AWS_ECR_ACCOUNT_URL
-#          repo: event-consumer-web
-#          create-repo: true
-#          tag: "$CIRCLE_SHA1"
-#          dockerfile: Dockerfile
-#          path: .
-#          skip-when-tags-exist: false
-#          filters:
-#            branches:
-#              only:
-#                - master
+      - docker/publish:
+          name: 'build-and-push-image-to-main'
+          image: 'peaksoftlms'
+          tag: 'latest'
+          path: .
+          update-description: true
+          filters:
+            branches:
+              only:
+                - main
 #
 #      - aws-ecr/build-and-push-image:
 #          name: 'build-and-push-image-to-development'
@@ -59,5 +54,5 @@ workflows:
             branches:
               only:
                 - main
-#          requires:
-#            - build-and-push-image-to-development
+          requires:
+            - build-and-push-image-to-main
