@@ -1,5 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CourseRequestDTO {
+public class CourseResponse {
 
+//    @JsonProperty("id")
+//    private Long id;
     private String name;
-    private String lastName;
     private String description;
     private String img;
     private LocalDate dateOfCreate;
-    private List<TeacherRequestDTO> teacher;
+    private List<TeacherRequest> teacher;
 }

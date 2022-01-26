@@ -1,12 +1,14 @@
 package kg.peaksoftlms.peaksoftlms.service.courseService;
 
 import kg.peaksoftlms.peaksoftlms.db.model.Course;
+import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.repository.CourseRepository;
-import kg.peaksoftlms.peaksoftlms.mapper.CourseMapper;
+import kg.peaksoftlms.peaksoftlms.db.repository.TeacherRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +18,8 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
-    private final CourseMapper courseMapper;
+    private final TeacherRepository teacherRepository;
+
 
     @Override
     public List<Course> getAllCourses() {
@@ -36,10 +39,29 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course saveCourse(Course course) {
-        log.info("Save course");
-        return courseRepository.save(course);
+    public void assignTeacherToTheCourse(Course course, Long idTeacher) {
+        Teacher teacher = teacherRepository.getById(idTeacher);
+        course.getTeacher().add(teacher);
+    }
 
+    @Override
+    public Course saveCourse(Course course) {
+//        if (course == null) {
+//            return null;
+//        }
+//        Course newCourse= new Course();
+//        newCourse.setId(course.getId());
+//        newCourse.setName(course.getName());
+//        newCourse.setDescription(course.getDescription());
+//        newCourse.setImg(course.getImg());
+//        newCourse.setDateOfCreate(course.getDateOfCreate());
+//        List<Teacher> teacherList = new ArrayList<>();
+//        for (Teacher t : course.getTeacher()) {
+//            teacherList.add(teacherRepository.getById(t.getId()));
+//        }
+//        newCourse.setTeacher(teacherList);
+//        log.info("Save service course: {}", course);
+        return courseRepository.save(course);
     }
 
     @Override
@@ -47,7 +69,7 @@ public class CourseServiceImpl implements CourseService {
         if (courseRepository.existsById(id)) {
             log.info("course from db: {}", course.getName());
             try {
-                courseRepository.save(courseMapper.courseToNewCourse(course));
+                courseRepository.save(course);
                 log.info("updated course: {}", course.getName());
             } catch (Exception ex) {
                 log.error("Exception {}", ex.getMessage());

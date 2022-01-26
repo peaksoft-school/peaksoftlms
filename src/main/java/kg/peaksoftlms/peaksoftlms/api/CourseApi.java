@@ -1,9 +1,12 @@
 package kg.peaksoftlms.peaksoftlms.api;
 
-import kg.peaksoftlms.peaksoftlms.db.dto.CourseRequestDTO;
-import kg.peaksoftlms.peaksoftlms.db.dto.CourseResponseDTO;
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseRequest;
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseResponse;
+import kg.peaksoftlms.peaksoftlms.db.dto.TeacherRequest;
 import kg.peaksoftlms.peaksoftlms.db.model.Course;
-import kg.peaksoftlms.peaksoftlms.mapper.CourseMapper;
+import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
+import kg.peaksoftlms.peaksoftlms.db.repository.TeacherRepository;
+import kg.peaksoftlms.peaksoftlms.mapper.MapStructMapperForCourse;
 import kg.peaksoftlms.peaksoftlms.service.courseService.CourseService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,30 +27,40 @@ import java.util.List;
 public class CourseApi {
 
     private final CourseService courseService;
-    private final CourseMapper courseMapper;
+    private final TeacherRepository teacherRepository;
+    private final MapStructMapperForCourse mapStructMapperForCourse;
 
-    @PostMapping(value = "")
-    public ResponseEntity<Course> addNewCourse(@Valid @RequestBody CourseResponseDTO courseResponseDTO) {
+    @PostMapping("")
+    public ResponseEntity<Course> addNewCourse(@Valid @RequestBody CourseResponse courseResponse) {
         Course registeredNewCourse = courseService
-                .saveCourse(courseMapper.courseFromCourseResponseDTO(courseResponseDTO));
-        log.info("Save course: {}", registeredNewCourse);
-        return new ResponseEntity<>(HttpStatus.OK);
+                .saveCourse(mapStructMapperForCourse.courseResponseToCourse(courseResponse));
+        log.info("Save api course: {}", registeredNewCourse);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+//    @PostMapping(value = "")
+//    public ResponseEntity<Course> addNewCourse(@Valid @RequestBody CourseResponse courseDTO) {
+//        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().
+//                path("/api/admin/courses").toUriString());
+//        Course registeredNewCourse = courseService
+//                .saveCourse(mapStructMapperForCourse.courseResponseToCourse(courseDTO));
+//        log.info("Save course: {}", registeredNewCourse);
+//        return ResponseEntity.created(uri).body(registeredNewCourse);
+//    }
 
-    @GetMapping("/courses")
-    public ResponseEntity<List<Course>> getAllCourses() {
+
+    @GetMapping("")
+    public ResponseEntity<List<CourseResponse>> getAllCourses() {
         List<Course> courseList = courseService.getAllCourses();
-        log.info("All courses: {}", courseList);
-        return new ResponseEntity<>(courseList, HttpStatus.OK);
+        List<CourseResponse> courseResponseList = mapStructMapperForCourse
+                .courseListToCourseResponseList(courseList);
+        log.info("All courses: {}", courseResponseList);
+        return new ResponseEntity<>(courseResponseList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().
-                path("/api/admin/course/{id}").toUriString());
-        Course course = courseService.getCourseById(id);
-        log.info("Get course by id: {}", course);
-        return ResponseEntity.created(uri).body(course);
+    public ResponseEntity<CourseRequest> getCourseById(@PathVariable Long id) {
+        return new ResponseEntity<>(mapStructMapperForCourse.courseToCourseRequest(
+                courseService.getCourseById(id)), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

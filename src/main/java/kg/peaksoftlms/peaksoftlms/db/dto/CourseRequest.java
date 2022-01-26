@@ -12,11 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CourseResponseDTO {
+public class CourseRequest {
+
     private String name;
-    private String lastName;
     private String description;
     private String img;
     private LocalDate dateOfCreate;
-    private List<TeacherRequestDTO> teacher;
+    private List<TeacherRequest> teacher;
 }
