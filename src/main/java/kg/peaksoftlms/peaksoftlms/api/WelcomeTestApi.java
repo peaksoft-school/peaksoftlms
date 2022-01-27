@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/welcome")
 public class WelcomeTestApi {
 
-    @GetMapping("/welcome")
+    @GetMapping
     public String welcome(){
         return "Welcome to Bilingual Application!!!";
     }
