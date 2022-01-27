@@ -2,7 +2,6 @@ package kg.peaksoftlms.peaksoftlms.service.courseService;
 
 import kg.peaksoftlms.peaksoftlms.db.model.Course;
 import kg.peaksoftlms.peaksoftlms.db.repository.CourseRepository;
-import kg.peaksoftlms.peaksoftlms.mapper.CourseMapper;
 import kg.peaksoftlms.peaksoftlms.mapper.CourseUpdateMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +16,6 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseUpdateMapper courseUpdateMapper;
-    private final CourseMapper courseMapper;
-
 
     @Override
     public List<Course> getAllCourses() {
