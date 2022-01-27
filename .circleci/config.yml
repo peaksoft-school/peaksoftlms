@@ -18,19 +18,19 @@ jobs:
             cd ./.deploy && eb init peaksoftlms -r $AWS_DEFAULT_REGION -p docker
             eb deploy -l $CIRCLE_SHA1
 
-workflows:
-  build_image_and_push_to_dockerhub_and_deploy_to_elastic_beanstalk:
-    jobs:
-      - docker/publish:
-          name: 'build-and-push-image-to-main'
-          image: 'peaksoftlms'
-          tag: 'latest'
-          path: .
-          update-description: true
-          filters:
-            branches:
-              only:
-                - main
+#workflows:
+#  build_image_and_push_to_dockerhub_and_deploy_to_elastic_beanstalk:
+#    jobs:
+#      - docker/publish:
+#          name: 'build-and-push-image-to-main'
+#          image: 'peaksoftlms'
+#          tag: 'latest'
+#          path: .
+#          update-description: true
+#          filters:
+#            branches:
+#              only:
+#                - main
 #
 #      - aws-ecr/build-and-push-image:
 #          name: 'build-and-push-image-to-development'
