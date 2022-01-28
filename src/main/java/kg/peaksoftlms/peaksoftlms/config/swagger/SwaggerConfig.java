@@ -60,8 +60,8 @@ public class SwaggerConfig {
 //                .securitySchemes(Arrays.asList(apiKey())) ;
 //    }
 //
-//
-//
+
+
     private ApiKey apiKey() {
         return new ApiKey("jwtToken", "Authorization", "header");
     }}
