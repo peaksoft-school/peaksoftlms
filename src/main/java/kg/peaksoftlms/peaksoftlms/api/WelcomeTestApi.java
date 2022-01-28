@@ -12,6 +12,6 @@ public class WelcomeTestApi {
 
     @GetMapping
     public String welcome(){
-        return "Welcome to Bilingual Application!!!";
+        return "Welcome to Peaksoftlms Application!!!";
     }
 }
