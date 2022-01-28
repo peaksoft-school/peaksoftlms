@@ -1,0 +1,14 @@
+{
+  "AWSEBDockerrunVersion":"1",
+  "Image":{
+    "Name":"chyngyzishen/peaksoftlms:tagname",
+    "Update": "true"
+  },
+
+  "Ports":[
+    {
+      "ContainerPort":8080,
+      "HostPort":8080
+    }
+  ]
+}
