@@ -14,16 +14,21 @@ import static javax.persistence.FetchType.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
+    private String name;
     @Email(message = "Cannot be empty")
     private String email;
     @JsonProperty
     private String password;
+
     @ManyToMany(fetch = EAGER, cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Role> role;
+
 //    private Course course;
 //    private String group;
 
@@ -38,4 +43,5 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
 }

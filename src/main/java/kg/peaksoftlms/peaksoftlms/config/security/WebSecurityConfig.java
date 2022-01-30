@@ -53,7 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/api/authentication", "/welcome").permitAll()
                 .antMatchers( "/api/test/**").permitAll()
                 .antMatchers("/api/admin").hasAuthority("ROLE_ADMIN")
-                .anyRequest().authenticated();
+                .antMatchers("v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .anyRequest().permitAll();
         http.logout().logoutUrl("/api/logout") //URL-адрес, запускающий выход из системы (по умолчанию "/logout").
                 .logoutSuccessUrl("/api/authentication");
 

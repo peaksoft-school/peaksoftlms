@@ -14,11 +14,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-@Entity @Table
+@Entity@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class Student {
+public class Student extends User{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,4 +37,17 @@ public class Student {
     @ManyToMany
     @JoinColumn(name = "id")
     private List<Group> group;
+    @Column(unique = true)
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int mssv = 0;
+
+    @OneToOne
+    private User user;
+    public Student(String studentEmail, String password) {
+        super(studentEmail, password);
+    }
+
+    public Student(User user) {
+    }
 }
