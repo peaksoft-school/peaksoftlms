@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-@OpenAPIDefinition
 public class PeaksoftlmsApplication {
 
     private final UserRepository userRepository;
