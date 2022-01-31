@@ -1,5 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.controller.rest;
 
+//import com.wordnik.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
 import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.service.TeacherService;
