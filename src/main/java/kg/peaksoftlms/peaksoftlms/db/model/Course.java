@@ -27,8 +27,8 @@ public class Course {
     private String img;
     private int price;
     private LocalDate dateOfCreate;
-    @ManyToOne
-    private Teacher teacher;
+    @ManyToMany
+    private List<Teacher> teacher;
 
 
 
