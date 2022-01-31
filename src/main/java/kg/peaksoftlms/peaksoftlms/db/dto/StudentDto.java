@@ -1,6 +1,5 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
-import com.wordnik.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @NoArgsConstructor
-@ApiModel(description = "DTO для сущности Student")
+//@ApiModel(description = "DTO для сущности Student")
 @Component
 public class StudentDto {
         private Long id;

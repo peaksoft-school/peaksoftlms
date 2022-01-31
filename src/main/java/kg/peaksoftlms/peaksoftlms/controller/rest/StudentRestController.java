@@ -1,6 +1,5 @@
 package kg.peaksoftlms.peaksoftlms.controller.rest;
 
-import com.wordnik.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/student")
 @CrossOrigin
-@Api(description = "Контроллер для управления студента")
+//@Api(description = "Контроллер для управления студента")
 @RequiredArgsConstructor
 public class StudentRestController {
 

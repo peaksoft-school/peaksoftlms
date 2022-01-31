@@ -1,6 +1,5 @@
 package kg.peaksoftlms.peaksoftlms.controller.rest;
 
-import com.wordnik.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.service.UserService;
@@ -17,14 +16,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
-@Api(description = "Контроллер для управления пользователем")
+//@Api(description = "Контроллер для управления пользователем")
 @RequiredArgsConstructor
 public class UserRestController {
 
     private final UserService userService;
 
     @GetMapping("")
-    @Operation(summary = "Все пользователи", description = "Позволяет получить всех пользователей из базы данных")
+//    @Operation(summary = "Все пользователи", description = "Позволяет получить всех пользователей из базы данных")
     public ResponseEntity<List<User>> getAllUsers() {
         try {
             return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
@@ -34,7 +33,7 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Пользователь(id)", description = "Позволяет получить пользователя по 'id'")
+//    @Operation(summary = "Пользователь(id)", description = "Позволяет получить пользователя по 'id'")
     public ResponseEntity<Optional<User>> getById(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);

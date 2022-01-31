@@ -1,5 +1,7 @@
 package kg.peaksoftlms.peaksoftlms.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.db.dto.SignupRequest;
 import kg.peaksoftlms.peaksoftlms.db.model.Role;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
@@ -19,12 +21,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
+@Tag( name = "For registration", description = "For entering program")
 public class AuthAdmin {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
 
     @PostMapping("")
+    @Operation (summary = "Registering User", description = "For registering new User")
     public ResponseEntity<?> saveUser(@RequestBody SignupRequest signupRequest) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().
                 path("/api/admin").toUriString());
