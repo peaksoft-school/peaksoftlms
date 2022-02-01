@@ -11,6 +11,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.EAGER;
+
 @Entity @Table(name = "groups")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,8 +28,9 @@ public class Group {
     private LocalDate dateOfCreate;
     @NotBlank(message = "you must write description!")
     private String description;
-//    @OneToMany(fetch = EAGER, cascade = {DETACH, MERGE, PERSIST, REFRESH})
-//    private List<Student> stedents;
-    @OneToMany
+    @ManyToMany(fetch = EAGER, cascade = ALL)
+    @JoinTable(name = "groups_student")
+    private List<Student> students;
+    @OneToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Course> courses;
 }

@@ -11,15 +11,20 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity @Table
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.REFRESH;
+
+@Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 
 public class Course {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
     private String name;
@@ -27,10 +32,12 @@ public class Course {
     private String img;
     private int price;
     private LocalDate dateOfCreate;
+
     @ManyToOne
     private Teacher teacher;
 
 
 
-
+    @OneToMany(mappedBy = "course", cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    private List<Lesson> lesson;
 }

@@ -1,6 +1,5 @@
 package kg.peaksoftlms.peaksoftlms;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +32,6 @@ public class PeaksoftlmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(PeaksoftlmsApplication.class, args);
     }
+
 
 }
