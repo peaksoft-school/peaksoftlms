@@ -16,13 +16,11 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 
 
-@Entity
-@Table
+@Entity@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class Student {
+@Getter @Setter
+public class Student extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,4 +38,17 @@ public class Student {
 
     @ManyToMany(mappedBy = "students", cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Group> group;
+    @Column(unique = true)
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int mssv = 0;
+
+    @OneToOne
+    private User user;
+    public Student(String studentEmail, String password) {
+        super(studentEmail, password);
+    }
+
+    public Student(User user) {
+    }
 }

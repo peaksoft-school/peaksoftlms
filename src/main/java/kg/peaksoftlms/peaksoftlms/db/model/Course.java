@@ -32,9 +32,11 @@ public class Course {
     private String img;
     private int price;
     private LocalDate dateOfCreate;
-    @ManyToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
-    @JoinTable(name = "course_teacher")
-    private List<Teacher> teacher;
+
+    @ManyToOne
+    private Teacher teacher;
+
+
 
     @OneToMany(mappedBy = "course", cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Lesson> lesson;

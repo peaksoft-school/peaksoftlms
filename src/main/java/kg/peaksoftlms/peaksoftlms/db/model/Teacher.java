@@ -18,12 +18,12 @@ import static javax.persistence.CascadeType.REFRESH;
 
 
 @Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class Teacher {
+@Getter @Setter
+public class Teacher extends User
+ {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,4 +41,8 @@ public class Teacher {
     private LocalDate dateOfCreate;
     @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Course> course;
+    @OneToOne
+    private User user;
+    public Teacher(User user) {
+    }
 }

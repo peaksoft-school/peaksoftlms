@@ -20,10 +20,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
+    private String name;
     @Email(message = "Cannot be empty")
     private String email;
     @JsonProperty
     private String password;
+
     @ManyToMany(fetch = EAGER, cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Role> role;
+
+//    private Course course;
+//    private String group;
+
+
+    public User(@Email(message = "Cannot be empty") String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(@Email(message = "Cannot be empty") String email, String password, List<Role> role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
 }
