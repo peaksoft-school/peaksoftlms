@@ -20,9 +20,9 @@ import static javax.persistence.CascadeType.REFRESH;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public class Teacher extends User
- {
+@Getter
+@Setter
+public class Teacher extends User {
 
 
     @Id
@@ -43,6 +43,7 @@ public class Teacher extends User
     private List<Course> course;
     @OneToOne
     private User user;
+
     public Teacher(User user) {
     }
 }

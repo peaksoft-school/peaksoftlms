@@ -16,11 +16,13 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 
 
-@Entity@Table
+@Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public class Student extends User{
+@Getter
+@Setter
+public class Student extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,6 +47,7 @@ public class Student extends User{
 
     @OneToOne
     private User user;
+
     public Student(String studentEmail, String password) {
         super(studentEmail, password);
     }

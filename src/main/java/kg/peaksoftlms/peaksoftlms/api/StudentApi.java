@@ -1,6 +1,7 @@
-package kg.peaksoftlms.peaksoftlms.controller.rest;
+package kg.peaksoftlms.peaksoftlms.api;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.service.StudentService;
@@ -13,17 +14,18 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
+
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/api/student")
 @CrossOrigin
-//@Api(description = "Контроллер для управления студента")
+@Tag(name = "Контроллер для управления студентами", description = "Позволяет получить, удалить, добaвить или обновить всех студентов")
 @RequiredArgsConstructor
-public class StudentRestController {
+public class StudentApi {
 
         private final StudentService studentService;
         private  final UserService userService;
 
-        @GetMapping("getAll")
+        @GetMapping("/getAll")
         @Operation(summary = "Все студенты", description = "Позволяет получить всех студентов из базы данных")
         public ResponseEntity<List<Student>> getAllStudents() {
             try {
@@ -33,7 +35,7 @@ public class StudentRestController {
             }
         }
 
-        @GetMapping("getById/{id}")
+        @GetMapping("/getById/{id}")
         @Operation(summary = "Студент(id)", description = "Позволяет получить студента по 'id'")
         public ResponseEntity<Optional<User>> getById(@PathVariable Long id) {
             try {
@@ -63,7 +65,7 @@ public class StudentRestController {
 //            }
 //        }
 
-        @PostMapping("addStudent")
+        @PostMapping("/addStudent")
         @Operation(summary = "Добавление ", description = "Позволяет добавить нового студента")
         public ResponseEntity<?> saveUser(@RequestBody Student student) {
             try {
@@ -74,7 +76,7 @@ public class StudentRestController {
             }
         }
 
-        @DeleteMapping("deleteBy/{id}")
+        @DeleteMapping("/deleteBy/{id}")
         @Operation(summary = "Удаление студента", description = "Позволяет удалить студента")
         public ResponseEntity<?> deleteById(@PathVariable Long id) {
             try {
@@ -95,7 +97,7 @@ public class StudentRestController {
             }
         }
 
-        @PutMapping("updateStudent")
+        @PutMapping("/updateStudent")
         @Operation(summary = "Обновление студента", description = "Позволяет обновить студента")
         public ResponseEntity<?> editStudent(@RequestBody Student student) {
             try {

@@ -20,7 +20,6 @@ import static javax.persistence.CascadeType.REFRESH;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class Course {
 
     @Id

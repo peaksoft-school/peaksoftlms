@@ -27,7 +27,7 @@ public class User {
     @JsonProperty
     private String password;
 
-    @ManyToMany(fetch = EAGER, cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    @ManyToMany(fetch = EAGER)
     private List<Role> role;
 
 //    private Course course;
