@@ -23,7 +23,7 @@ public class PeaksoftlmsApplication {
     @PostConstruct
     public void initUsers() {
         List<User> users = Stream.of(
-                new User("admin@gmail.com", passwordEncoder.encode("qwerty"))
+                new User("admin@gmail.com", passwordEncoder.encode("admin"))
         ).collect(Collectors.toList());
         userRepository.saveAll(users);
     }

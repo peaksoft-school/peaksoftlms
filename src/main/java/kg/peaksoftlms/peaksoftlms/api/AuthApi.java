@@ -27,7 +27,7 @@ public class AuthApi {
 
     private final JwtUtils jwtUtils;
 
-    @GetMapping("/authentication")
+    @PostMapping("/authentication")
     public ResponseEntity<?> authUser(@RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager
