@@ -11,19 +11,17 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.REFRESH;
-
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Teacher extends User {
 
+public class Teacher extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +37,7 @@ public class Teacher extends User {
     private String teacherImg;
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
+
     @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Course> course;
     @OneToOne
@@ -46,4 +45,5 @@ public class Teacher extends User {
 
     public Teacher(User user) {
     }
+
 }

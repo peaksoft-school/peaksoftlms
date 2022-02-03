@@ -1,10 +1,8 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import kg.peaksoftlms.peaksoftlms.db.model.lesson.Lesson;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,12 +12,17 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.REFRESH;
 
+import static javax.persistence.FetchType.EAGER;
+
+
 @Entity
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
+
 public class Course {
 
     @Id
@@ -32,11 +35,13 @@ public class Course {
     private int price;
     private LocalDate dateOfCreate;
 
-    @ManyToOne
-    private Teacher teacher;
+    @ManyToMany(fetch = EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(name = "course_teacher",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
+    @JsonView(Course.class)
+    private List<Teacher> teacher;
 
-
-
-    @OneToMany(mappedBy = "course", cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    @OneToMany
     private List<Lesson> lesson;
 }
