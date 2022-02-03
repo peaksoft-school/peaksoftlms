@@ -33,6 +33,8 @@ public class GroupAPI {
     public GroupResponse getAllGroups(@Valid @RequestBody GroupRequest groupRequest) {
             return groupService.getAllGroups(groupRequest);
         }
+
+
 //
 //        @GetMapping("/{id}")
 //        public ResponseEntity<GroupResponse> getGroupById(@PathVariable Long id) {
