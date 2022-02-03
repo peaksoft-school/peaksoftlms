@@ -1,6 +1,5 @@
 package kg.peaksoftlms.peaksoftlms;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

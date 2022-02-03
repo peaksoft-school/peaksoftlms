@@ -29,14 +29,10 @@ public class GroupAPI {
         return groupService.addNewGroup(groupRequest);
     }
 
-//        @GetMapping("")
-//        public ResponseEntity<List<GroupResponse>> getAllGroups() {
-//            List<Group> groupList = groupService.getAllGroups();
-//            List<GroupResponse> groupResponseList = groupMapper
-//                    .groupListToGroupResponseList(groupList);
-//            log.info("All groups: {}", groupResponseList);
-//            return new ResponseEntity<>(groupResponseList, HttpStatus.OK);
-//        }
+    @GetMapping("")
+    public GroupResponse getAllGroups(@Valid @RequestBody GroupRequest groupRequest) {
+            return groupService.getAllGroups(groupRequest);
+        }
 //
 //        @GetMapping("/{id}")
 //        public ResponseEntity<GroupResponse> getGroupById(@PathVariable Long id) {
