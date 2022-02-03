@@ -1,6 +1,5 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import kg.peaksoftlms.peaksoftlms.db.model.lesson.Lesson;
 import lombok.*;
 
@@ -8,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table
