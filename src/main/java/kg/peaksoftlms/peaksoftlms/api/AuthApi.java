@@ -1,5 +1,7 @@
 package kg.peaksoftlms.peaksoftlms.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.config.security.jwt.JwtUtils;
 import kg.peaksoftlms.peaksoftlms.db.dto.JwtResponse;
 import kg.peaksoftlms.peaksoftlms.db.dto.LoginRequest;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
+@Tag(name = "Контроллер для логин")
 @RequestMapping("/api")
 public class AuthApi {
 
@@ -28,6 +31,7 @@ public class AuthApi {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/authentication")
+    @Operation(summary = "Логирование  пользователя", description = "Позволяет Залогинится  пользователя")
     public ResponseEntity<?> authUser(@RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager

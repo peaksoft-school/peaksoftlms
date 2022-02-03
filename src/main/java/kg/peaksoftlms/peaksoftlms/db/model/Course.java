@@ -11,7 +11,9 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.REFRESH;
+
 import static javax.persistence.FetchType.EAGER;
+
 
 @Entity
 @Table
@@ -20,6 +22,7 @@ import static javax.persistence.FetchType.EAGER;
 @Getter
 @Setter
 @ToString
+
 public class Course {
 
     @Id
@@ -31,6 +34,7 @@ public class Course {
     private String img;
     private int price;
     private LocalDate dateOfCreate;
+
     @ManyToMany(fetch = EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "course_teacher",
             joinColumns = @JoinColumn(name = "course_id"),

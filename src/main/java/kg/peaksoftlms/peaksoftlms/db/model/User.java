@@ -10,20 +10,26 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
-@Entity @Table(name = "users")
+@Entity
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
+    private String name;
     @Email(message = "Cannot be empty")
     private String email;
     @JsonProperty
     private String password;
-    @ManyToMany(fetch = EAGER, cascade = {DETACH, MERGE, PERSIST, REFRESH})
+
+    @ManyToMany(fetch = EAGER)
     private List<Role> role;
+
 //    private Course course;
 //    private String group;
 
@@ -38,4 +44,5 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
 }

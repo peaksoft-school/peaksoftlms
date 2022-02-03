@@ -7,14 +7,16 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity @Table
+@Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class Task {
     @Id
 //    @OneToMany(fetch =LAZY, cascade = {DETACH, MERGE, PERSIST, REFRESH})
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String taskName;
     private String task;

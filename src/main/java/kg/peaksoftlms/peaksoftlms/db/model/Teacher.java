@@ -12,14 +12,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.REFRESH;
 
 @Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Teacher {
+
+public class Teacher extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +38,12 @@ public class Teacher {
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
 
-//    @JsonIgnore
-//    @ManyToMany(fetch = EAGER, mappedBy = "teacher")
-//    private List<Course> course;
+    @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    private List<Course> course;
+    @OneToOne
+    private User user;
+
+    public Teacher(User user) {
+    }
+
 }
