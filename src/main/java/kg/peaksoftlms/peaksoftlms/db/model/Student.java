@@ -13,20 +13,24 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
 
-@Entity@Table
+
+@Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public class Student extends User{
+@Getter
+@Setter
+public class Student extends User {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank (message = "Have to create new student")
+    @NotBlank(message = "Have to create new student")
     private String studentName;
-    @NotBlank (message = "Have to write last name")
+    @NotBlank(message = "Have to write last name")
     private String studentLastName;
-    @Email (message = "wrong E-mail, please give the correct E-mail")
+    @Email(message = "wrong E-mail, please give the correct E-mail")
     private String studentEmail;
     @JsonProperty
     private String password;
@@ -34,8 +38,7 @@ public class Student extends User{
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
 
-    @ManyToMany
-    @JoinColumn(name = "id")
+    @ManyToMany(mappedBy = "students", cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Group> group;
     @Column(unique = true)
 
@@ -44,6 +47,7 @@ public class Student extends User{
 
     @OneToOne
     private User user;
+
     public Student(String studentEmail, String password) {
         super(studentEmail, password);
     }

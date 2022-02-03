@@ -1,7 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.wordnik.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description =  "DTO для построения ответов REST контроллеров")
+//@ApiModel(description =  "DTO для построения ответов REST контроллеров")
 public class ResponseDto<T> {
     private Boolean success;
     @JsonInclude(JsonInclude.Include.NON_NULL)

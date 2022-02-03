@@ -1,7 +1,7 @@
-package kg.peaksoftlms.peaksoftlms.controller.rest;
+package kg.peaksoftlms.peaksoftlms.api;
 
-import com.wordnik.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.service.UserService;
 import kg.peaksoftlms.peaksoftlms.service.impl.UserDetailsImpl;
@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @CrossOrigin
-@Api(description = "Контроллер для управления пользователем")
+@Tag(name = "Контроллер для управления пользователем", description = "Позволяет получить, удалить, добaвить или обновить всех пользователей")
 @RequiredArgsConstructor
-public class UserRestController {
+public class UserApi {
 
     private final UserService userService;
 
