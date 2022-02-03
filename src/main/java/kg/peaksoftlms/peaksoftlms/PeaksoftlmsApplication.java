@@ -52,6 +52,7 @@ public class PeaksoftlmsApplication {
 
         List<User> users = Stream.of(
                 new User("admin@gmail.com", passwordEncoder.encode("admin"), roles)
+
         ).collect(Collectors.toList());
         userRepository.saveAll(users);
     }
@@ -60,6 +61,5 @@ public class PeaksoftlmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(PeaksoftlmsApplication.class, args);
     }
-
 
 }
