@@ -9,11 +9,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
-import static javax.persistence.CascadeType.*;
-import static javax.persistence.CascadeType.REFRESH;
-
 import static javax.persistence.FetchType.EAGER;
-
 
 @Entity
 @Table
@@ -22,9 +18,7 @@ import static javax.persistence.FetchType.EAGER;
 @Getter
 @Setter
 @ToString
-
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

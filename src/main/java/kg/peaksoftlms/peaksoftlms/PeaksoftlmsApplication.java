@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 @SpringBootApplication
 @RequiredArgsConstructor
 public class PeaksoftlmsApplication {
@@ -24,7 +23,7 @@ public class PeaksoftlmsApplication {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
-    @PostConstruct
+//    @PostConstruct
     public void initUsers() {
         //admin role
         Role admin = Role.builder()

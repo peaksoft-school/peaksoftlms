@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/student")
+@RequestMapping("/api/students")
 @CrossOrigin
 @Tag(name = "Контроллер для управления студентами", description = "Позволяет получить, удалить, добaвить или обновить всех студентов")
 @RequiredArgsConstructor
@@ -107,6 +107,6 @@ public class StudentApi {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-       }
+}
 
 
