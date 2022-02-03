@@ -29,11 +29,7 @@ public class Course {
     private int price;
     private LocalDate dateOfCreate;
 
-    @ManyToMany(fetch = EAGER, cascade = {CascadeType.MERGE})
-    @JoinTable(name = "course_teacher",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
-    @JsonView(Course.class)
+    @ManyToMany
     private List<Teacher> teacher;
 
     @OneToMany
