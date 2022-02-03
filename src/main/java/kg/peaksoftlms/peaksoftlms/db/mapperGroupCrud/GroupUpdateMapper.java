@@ -1,13 +1,8 @@
-package kg.peaksoftlms.peaksoftlms.mapperGroupCrud;
+package kg.peaksoftlms.peaksoftlms.db.mapperGroupCrud;
 
-import kg.peaksoftlms.peaksoftlms.db.dto.GroupRequest;
-import kg.peaksoftlms.peaksoftlms.db.dto.GroupResponse;
-import kg.peaksoftlms.peaksoftlms.db.model.Course;
 import kg.peaksoftlms.peaksoftlms.db.model.Group;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
-import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.repository.StudentRepository;
-import kg.peaksoftlms.peaksoftlms.db.repository.TeacherRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -28,13 +23,12 @@ public class GroupUpdateMapper {
         newGroup.setId(group.getId());
         newGroup.setName(group.getName());
         newGroup.setDescription(group.getDescription());
-        newGroup.setImg(group.getImg());
         newGroup.setDateOfCreate(group.getDateOfCreate());
         List<Student> studentList = new ArrayList<>();
-        for (Student t : group.getStudent()) {
-            studentList.add(studentRepository.getById(t.getId()));
-        }
-        newGroup.setStudent(studentList);
+//        for (Student t : group.get) {
+//            studentList.add(studentRepository.getById(t.getId()));
+//        }
+//        newGroup.setStudent(studentList);
         return newGroup;
     }
 }

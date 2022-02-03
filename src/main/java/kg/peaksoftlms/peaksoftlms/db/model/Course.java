@@ -29,8 +29,4 @@ public class Course {
     private LocalDate dateOfCreate;
     @ManyToOne
     private Teacher teacher;
-
-
-
-
 }

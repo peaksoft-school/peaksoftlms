@@ -11,22 +11,27 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity @Table(name = "groups")
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.GenerationType.*;
+
+@Entity
+@Table(name = "groups")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @NotBlank
+    // TODO: 3/2/22 define image
+    @NotBlank(message = "group name is required")
     private String name;
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
     @NotBlank(message = "you must write description!")
+    @Column(length = 10000)
     private String description;
-//    @OneToMany(fetch = EAGER, cascade = {DETACH, MERGE, PERSIST, REFRESH})
-//    private List<Student> stedents;
-    @OneToMany
+    @OneToMany(cascade = {DETACH, REFRESH, MERGE, PERSIST})
     private List<Course> courses;
 }

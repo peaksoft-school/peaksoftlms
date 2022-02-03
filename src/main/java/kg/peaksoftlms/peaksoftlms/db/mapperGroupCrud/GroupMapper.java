@@ -1,14 +1,17 @@
-package kg.peaksoftlms.peaksoftlms.mapperGroupCrud;
+package kg.peaksoftlms.peaksoftlms.db.mapperGroupCrud;
 
 import kg.peaksoftlms.peaksoftlms.db.dto.GroupRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.GroupResponse;
 import kg.peaksoftlms.peaksoftlms.db.model.Group;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class GroupMapper {
-    private final ModelMapper modelMapper;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     public Group groupRequestToGroup(GroupRequest groupRequest) {
         if (groupRequest == null) {

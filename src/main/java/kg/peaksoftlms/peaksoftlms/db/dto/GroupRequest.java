@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -12,7 +13,9 @@ import java.time.LocalDate;
 @Getter @Setter
 public class GroupRequest {
     private long id;
+    // TODO: 3/2/22 add image
     private String name;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfCreate;
     private String description;
 }
