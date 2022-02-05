@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
-import static javax.persistence.GenerationType.*;
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name = "groups")
@@ -22,16 +22,17 @@ import static javax.persistence.GenerationType.*;
 @Setter
 public class Group {
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // TODO: 3/2/22 define image
-    @NotBlank(message = "group name is required")
+    @NotBlank
     private String name;
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
     @NotBlank(message = "you must write description!")
-    @Column(length = 10000)
     private String description;
-    @OneToMany(cascade = {DETACH, REFRESH, MERGE, PERSIST})
+    @ManyToMany(fetch = EAGER, cascade = ALL)
+    @JoinTable(name = "groups_student")
+    private List<Student> students;
+    @OneToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Course> courses;
 }

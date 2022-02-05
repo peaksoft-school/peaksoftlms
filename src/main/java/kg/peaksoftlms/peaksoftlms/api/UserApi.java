@@ -1,6 +1,7 @@
-package kg.peaksoftlms.peaksoftlms.controller.rest;
+package kg.peaksoftlms.peaksoftlms.api;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.service.UserService;
 import kg.peaksoftlms.peaksoftlms.service.impl.UserDetailsImpl;
@@ -14,16 +15,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @CrossOrigin
-//@Api(description = "Контроллер для управления пользователем")
+@Tag(name = "Контроллер для управления пользователем", description = "Позволяет получить, удалить, добaвить или обновить всех пользователей")
 @RequiredArgsConstructor
-public class UserRestController {
+public class UserApi {
 
     private final UserService userService;
 
     @GetMapping("")
-//    @Operation(summary = "Все пользователи", description = "Позволяет получить всех пользователей из базы данных")
+    @Operation(summary = "Все пользователи", description = "Позволяет получить всех пользователей из базы данных")
     public ResponseEntity<List<User>> getAllUsers() {
         try {
             return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
@@ -33,7 +34,7 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-//    @Operation(summary = "Пользователь(id)", description = "Позволяет получить пользователя по 'id'")
+    @Operation(summary = "Пользователь(id)", description = "Позволяет получить пользователя по 'id'")
     public ResponseEntity<Optional<User>> getById(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);

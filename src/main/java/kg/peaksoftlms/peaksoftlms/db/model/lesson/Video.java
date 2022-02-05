@@ -7,16 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity @Table
+@Entity
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class Video {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String videoName;
     private String video;
-   @ManyToOne
+    @ManyToOne
     private Lesson lesson;
 }
