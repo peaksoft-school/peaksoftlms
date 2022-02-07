@@ -1,10 +1,10 @@
 package kg.peaksoftlms.peaksoftlms.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import kg.peaksoftlms.peaksoftlms.db.dto.GroupRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.GroupResponse;
-import kg.peaksoftlms.peaksoftlms.db.mapperGroupCrud.GroupMapper;
-import kg.peaksoftlms.peaksoftlms.db.model.Course;
 import kg.peaksoftlms.peaksoftlms.db.model.Group;
+import kg.peaksoftlms.peaksoftlms.mapper.GroupMapper;
 import kg.peaksoftlms.peaksoftlms.service.GroupService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,23 +24,23 @@ public class GroupAPI {
     private final GroupService groupService;
     private final GroupMapper groupMapper;
 
-    @PostMapping("/add")
+    @PostMapping("")
+    @Operation(summary = "Для добавления груп", description = "Позволяет добавить группы")
     public GroupResponse addNewGroup(@Valid @RequestBody GroupRequest groupRequest) {
         return groupService.addNewGroup(groupRequest);
     }
 
     @GetMapping("")
-    public GroupResponse getAllGroups(@Valid @RequestBody GroupRequest groupRequest) {
-            return groupService.getAllGroups(groupRequest);
-        }
+    @Operation(summary = "Для получения всех группы", description = "Позволяет получить все группы")
+    public List<GroupResponse> getAllGroups() {
+        return groupService.getAllGroups();
+    }
 
-
-//
-//        @GetMapping("/{id}")
-//        public ResponseEntity<GroupResponse> getGroupById(@PathVariable Long id) {
-//            return new ResponseEntity<>(groupMapper.groupToGroupResponse(
-//                    groupService.getGroupById(id)), HttpStatus.OK);
-//        }
+    @GetMapping("/{id}")
+    @Operation(summary = "Для получения группы по ID", description = "Позволяет получить групу по ID")
+    public ResponseEntity<GroupResponse> getGroupById(@PathVariable Long id) {
+        return new ResponseEntity<>(groupMapper.groupToGroupResponse(groupService.getById(id)), HttpStatus.OK);
+    }
 //
 //        @GetMapping("/name/{name}")
 //        public ResponseEntity<GroupResponse> getGroupByName(@PathVariable String name) {
@@ -52,17 +52,16 @@ public class GroupAPI {
 //                    .groupToGroupResponse(group), HttpStatus.OK);
 //        }
 //
-//        @PutMapping("/{id}")
-//        public ResponseEntity<Group> updateGroup(@RequestBody Group group, @PathVariable Long id) {
-//            groupService.updateGroup(id, group);
-//            return new ResponseEntity<>(group, HttpStatus.OK);
-//        }
-//
-//        @DeleteMapping("/{id}")
-//        public ResponseEntity<GroupResponse> deleteGroup(@PathVariable Long id) {
-//            groupService.deleteGroup(id);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        }
+        @PutMapping("/save/group")
+        public ResponseEntity<Group> updateGroup(@RequestBody Group group) {
+            return new ResponseEntity<>(groupService.saveGroup(group), HttpStatus.OK);
+        }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<GroupResponse> deleteGroup(@PathVariable Long id) {
+            groupService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
 }
 
 
