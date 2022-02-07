@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter @Setter
 public class GroupRequest {
-    private long id;
     // TODO: 3/2/22 add image
+    private Long id;
     private String name;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfCreate;
