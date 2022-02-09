@@ -54,7 +54,7 @@ public class CourseApi {
                 courseService.getCourseById(id)), HttpStatus.OK);
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/{name}")
     @Operation(summary = "Для получения курсов по имени", description = "Позволяет получить курс по имени")
     public ResponseEntity<CourseResponse> getCourseByName(@PathVariable String name) {
         Course course = courseService.getCourseByName(name);
