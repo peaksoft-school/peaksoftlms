@@ -37,7 +37,7 @@ public class CourseApi {
                 .courseToCourseResponse(registeredNewCourse), HttpStatus.CREATED);
     }
 
-    @GetMapping("")
+    @GetMapping()
     @Operation(summary = "Для получения всех курсов", description = "Позволяет получить все курсы")
     public ResponseEntity<List<CourseResponse>> getAllCourses() {
         List<Course> courseList = courseService.getAllCourses();

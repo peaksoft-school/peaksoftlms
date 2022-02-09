@@ -1,5 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
+import kg.peaksoftlms.peaksoftlms.db.dto.TeacherResponse;
 import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.TeacherRepository;
@@ -27,7 +28,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
      @Override
     public void create(User user) {
-        Teacher teacher = new Teacher(user);
+
+        Teacher teacher = new Teacher();
         teacherRepository.save(teacher);
     }
      @Override
@@ -69,6 +71,21 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.getByName(name);
 
 }
+
+    @Override
+    public List<Teacher> getAllTeachers() {
+        return null;
+    }
+
+    @Override
+    public Teacher getTeacherById(Long id) {
+        return null;
+    }
+
+    @Override
+    public TeacherResponse getByEmail(String email) {
+        return null;
+    }
 
 //    @Override
 //    public Teacher getByEmail(String email) {

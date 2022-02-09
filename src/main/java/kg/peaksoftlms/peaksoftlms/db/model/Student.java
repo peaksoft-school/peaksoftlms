@@ -48,10 +48,4 @@ public class Student extends User {
     @OneToOne
     private User user;
 
-    public Student(String studentEmail, String password) {
-        super(studentEmail, password);
-    }
-
-    public Student(User user) {
-    }
 }

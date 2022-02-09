@@ -9,8 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherObject {
-    private Long id;
-    private String teacherName;
-    private String teacherLastName;
+public class TeacherRequest {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String img;
 }

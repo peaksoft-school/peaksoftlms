@@ -1,5 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.service;
 
+import kg.peaksoftlms.peaksoftlms.db.dto.TeacherResponse;
 import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 
@@ -22,4 +23,10 @@ public interface TeacherService {
     List<Teacher> findAllByNameContaining(String name);
 
     Teacher getByName(String name);
+
+    List<Teacher> getAllTeachers();
+
+    Teacher getTeacherById(Long id);
+
+    TeacherResponse getByEmail(String email);
 }

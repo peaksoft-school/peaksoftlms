@@ -27,14 +27,14 @@ public class Teacher extends User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Have to create new responsible person")
-    private String teacherName;
+    private String firstName;
     @NotBlank(message = "Have to write last name")
-    private String teacherLastName;
+    private String lastName;
     @Email(message = "wrong E-mail address, please check it again")
-    private String teacherEmail;
+    private String email;
     @JsonProperty
     private String password;
-    private String teacherImg;
+    private String img;
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
 
@@ -43,7 +43,5 @@ public class Teacher extends User {
     @OneToOne
     private User user;
 
-    public Teacher(User user) {
-    }
 
 }

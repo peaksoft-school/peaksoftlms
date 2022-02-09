@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
      }
      @Override
      public void create(User user, int mssv) {
-          Student student = new Student(user);
+          Student student = new Student();
           if (mssv <= 0) {
                student.setMssv(getMaxMssv() + 1);
           } else {

@@ -8,8 +8,9 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @Getter@Setter
-public class TeacherDto {
+public class TeacherResponse {
     private Long id;
-    private String name;
-    private Long userId;
+    private String firstName;
+    private String lastName;
+    private String email;
 }
