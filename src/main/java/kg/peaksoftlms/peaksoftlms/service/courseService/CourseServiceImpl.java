@@ -1,7 +1,10 @@
 package kg.peaksoftlms.peaksoftlms.service.courseService;
 
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseRequest;
+import kg.peaksoftlms.peaksoftlms.db.dto.CourseResponse;
 import kg.peaksoftlms.peaksoftlms.db.model.Course;
 import kg.peaksoftlms.peaksoftlms.db.repository.CourseRepository;
+import kg.peaksoftlms.peaksoftlms.mapper.CourseMapper;
 import kg.peaksoftlms.peaksoftlms.mapper.CourseUpdateMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +19,7 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseUpdateMapper courseUpdateMapper;
+    private final CourseMapper courseMapper;
 
     @Override
     public List<Course> getAllCourses() {
@@ -43,16 +47,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void updateCourse(Long id, Course course) {
-        if (courseRepository.existsById(id)) {
-            log.info("course from db: {}", course.getName());
-            try {
-                courseRepository.save(courseUpdateMapper.courseToNewCourse(course));
-                log.info("updated course: {}", course.getName());
-            } catch (Exception ex) {
-                log.error("Exception {}", ex.getMessage());
-            }
-        }
+    public CourseResponse updateCourse(Long id, CourseRequest courseRequest) {
+        Course course = courseRepository.getById(id);
+        courseUpdateMapper.update(course, courseRequest);
+        CourseResponse courseResponse =
+                courseMapper.courseToCourseResponse(courseRepository.save(course));
+        log.info("updated course: {}", course.getName());
+
+
+//        if (courseRepository.existsById(id)) {
+//            log.info("course from db: {}", course.getName());
+//            try {
+//                courseRepository.save(courseUpdateMapper.courseToNewCourse(course));
+//                log.info("updated course: {}", course.getName());
+//            } catch (Exception ex) {
+//                log.error("Exception {}", ex.getMessage());
+//            }
+//        }
+        return courseResponse;
     }
 
     @Override
