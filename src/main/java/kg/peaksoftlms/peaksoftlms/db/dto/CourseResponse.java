@@ -19,5 +19,5 @@ public class CourseResponse {
     private String description;
     private String img;
     private LocalDate dateOfCreate;
-    private List<TeacherObject> teacher;
+//    private List<TeacherObject> teacher;
 }

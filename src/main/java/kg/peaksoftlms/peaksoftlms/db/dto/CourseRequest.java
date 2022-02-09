@@ -17,6 +17,6 @@ public class CourseRequest {
     private String name;
     private String description;
     private String img;
-    private LocalDate dateOfCreate;
-    private List<TeacherObject> teacher;
+//    private LocalDate dateOfCreate;
+//    private List<TeacherObject> teacher;
 }
