@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
