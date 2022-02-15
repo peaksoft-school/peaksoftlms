@@ -1,16 +1,14 @@
 package kg.peaksoftlms.peaksoftlms.config.security.jwt;
 
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
 import kg.peaksoftlms.peaksoftlms.service.impl.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
 
 @Service
 public class JwtUtils {

@@ -1,7 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import kg.peaksoftlms.peaksoftlms.db.model.Admin;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,16 +28,16 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(Admin admin) {
+    public static UserDetailsImpl build(User user) {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        admin.getRoleList().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getRole()));
+        user.getRole().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         });
 
         return new UserDetailsImpl(
-                admin.getId(),
-                admin.getEmail(),
-                admin.getPassword(),
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
                 authorities);
     }
 

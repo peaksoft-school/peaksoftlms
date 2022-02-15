@@ -1,4 +1,4 @@
-//package kg.peaksoftlms.peaksoftlms.config;
+package kg.peaksoftlms.peaksoftlms.config;//package kg.peaksoftlms.peaksoftlms.config;
 //
 //import kg.peaksoftlms.peaksoftlms.db.model.*;
 //import kg.peaksoftlms.peaksoftlms.db.model.lesson.*;
