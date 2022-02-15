@@ -27,8 +27,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
      @Override
     public void create(User user) {
-//        Teacher teacher = new Teacher(user);
-//        teacherRepository.save(teacher);
+        Teacher teacher = new Teacher(user);
+        teacherRepository.save(teacher);
     }
      @Override
     public void update(Teacher teacher) {
@@ -36,7 +36,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
     @Override
     public void delete(Long id) {
+        Teacher teacher = teacherRepository.findById(id).get();
+        User user = teacher.getUser();
         teacherRepository.deleteById(id);
+        if (user != null) {
+            userRepository.delete(user);
+        }
     }
     @Override
     public Teacher findByUser(User user) {

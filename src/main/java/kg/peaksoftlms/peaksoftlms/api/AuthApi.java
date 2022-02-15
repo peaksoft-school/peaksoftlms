@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.config.security.jwt.JwtUtils;
 import kg.peaksoftlms.peaksoftlms.db.dto.JwtResponse;
 import kg.peaksoftlms.peaksoftlms.db.dto.LoginRequest;
-
 import kg.peaksoftlms.peaksoftlms.service.impl.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

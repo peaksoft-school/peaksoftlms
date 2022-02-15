@@ -1,8 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
-import kg.peaksoftlms.peaksoftlms.db.model.Admin;
 import kg.peaksoftlms.peaksoftlms.db.model.Role;
-import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.RoleRepository;
 import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
@@ -65,13 +63,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<Admin> getUserByEmail(String email) {
+    public Optional<User> getUserByEmail(String email) {
         log.info("Fetching user {}", email);
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public List<Admin> getUsers() {
+    public List<User> getUsers() {
         log.info("Fetching all users");
         return userRepository.findAll();
     }
@@ -82,12 +80,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<Admin> findById(Long id) {
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public Optional<Admin> getUserByName(String name) {
+    public Optional<User> getUserByName(String name) {
         return userRepository.findUserByName(name);
     }
 

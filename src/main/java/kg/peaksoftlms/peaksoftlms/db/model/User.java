@@ -1,39 +1,50 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.List;
 
-@MappedSuperclass
+import static javax.persistence.FetchType.EAGER;
+
+@Entity
+@Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class User {
-
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
+    @Column
+    private String name;
     @Email(message = "Cannot be empty")
     private String email;
-
     @JsonProperty
     private String password;
 
-    private String image;
+    @ManyToMany(fetch = EAGER)
+    private List<Role> role;
+
+//    private Course course;
+//    private String group;
 
 
     public User(@Email(message = "Cannot be empty") String email, String password) {
         this.email = email;
         this.password = password;
     }
+
+    public User(@Email(message = "Cannot be empty") String email, String password, List<Role> role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
 }
