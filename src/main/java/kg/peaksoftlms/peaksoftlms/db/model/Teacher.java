@@ -23,27 +23,18 @@ import static javax.persistence.CascadeType.REFRESH;
 @Setter
 public class Teacher extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotBlank(message = "Have to create new responsible person")
-    private String teacherName;
-    @NotBlank(message = "Have to write last name")
-    private String teacherLastName;
-    @Email(message = "wrong E-mail address, please check it again")
-    private String teacherEmail;
-    @JsonProperty
-    private String password;
-    private String teacherImg;
+//    TODO: set a validation for the number insert
+    private String number;
+
+    @ManyToMany(cascade = {REFRESH, DETACH, PERSIST, MERGE}, fetch = FetchType.LAZY)
+    private List<Role> roleList;
+
     @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
 
     @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<Course> course;
-    @OneToOne
-    private User user;
 
-    public Teacher(User user) {
-    }
+
 
 }

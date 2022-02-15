@@ -3,6 +3,7 @@ package kg.peaksoftlms.peaksoftlms.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.db.dto.SignupRequest;
+import kg.peaksoftlms.peaksoftlms.db.model.Admin;
 import kg.peaksoftlms.peaksoftlms.db.model.Role;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.service.RoleService;
@@ -33,7 +34,7 @@ public class AuthAdmin {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().
                 path("/api/admin").toUriString());
 
-        User user = new User(
+        Admin user = new Admin(
                 signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword()));
 
@@ -41,7 +42,7 @@ public class AuthAdmin {
         for (String role : signupRequest.getRoles()) {
             roleList.add(roleService.getByRoleName(role));
         }
-        user.setRole(roleList);
+        user.setRoleList(roleList);
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 }
