@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -22,7 +24,7 @@ import static javax.persistence.FetchType.EAGER;
 @Setter
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @NotBlank
     private String name;
@@ -31,6 +33,7 @@ public class Group {
     @NotBlank(message = "you must write description!")
     private String description;
     @ManyToMany(fetch = EAGER, cascade = ALL)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "groups_student")
     private List<Student> students;
     @OneToMany(cascade = {DETACH, MERGE, PERSIST, REFRESH})

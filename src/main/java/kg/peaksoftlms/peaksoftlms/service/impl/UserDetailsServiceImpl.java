@@ -1,5 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
+import kg.peaksoftlms.peaksoftlms.db.model.Admin;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+        Admin amdin = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + email));
-        return UserDetailsImpl.build(user);
+        return UserDetailsImpl.build(amdin);
     }
 }

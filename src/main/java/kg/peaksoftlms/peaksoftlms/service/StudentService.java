@@ -12,20 +12,12 @@ public interface StudentService {
 
     Student findById(Long id);
 
-    Student findByMssv(int mssv);
+    Student saveStudent(Student student);
 
-    void create(User user, int mssv);
+    Student delete(Long id);
 
-    void addStudent(Student student);
-
-    void update(Student student);
-
-    void delete(Long id);
     Student getByName(String name);
 
     Student findByUser(User user);
 
-//    List<Student> findAllByNameContaining(String name);
-
-    int getMaxMssv();
 }
