@@ -1,94 +1,73 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
+import kg.peaksoftlms.peaksoftlms.db.dto.TeacherRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.TeacherResponse;
 import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
-import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.TeacherRepository;
-import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
+import kg.peaksoftlms.peaksoftlms.mapper.TeacherMapper;
 import kg.peaksoftlms.peaksoftlms.service.TeacherService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
+@AllArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
-    @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private UserRepository userRepository;
+
+    private final TeacherRepository teacherRepository;
+    private final TeacherMapper teacherMapper;
 
     @Override
-    public List<Teacher> findAll() {
-        return teacherRepository.findAll();
+    public List<TeacherResponse> getAllTeachers() {
+        return teacherMapper.teacherListToTeacherResponseList(teacherRepository.findAll());
     }
-    @Override
-    public Teacher findById(Long id) {
-        return teacherRepository.findById(id).get();
-    }
-     @Override
-    public void create(User user) {
 
-        Teacher teacher = new Teacher();
-        teacherRepository.save(teacher);
+    @Override
+    public TeacherResponse getTeacherById(Long id) {
+        Teacher teacher = teacherRepository.findById(id).orElse(null);
+        return teacherMapper.teacherToTeacherResponse(teacher);
     }
-     @Override
-    public void update(Teacher teacher) {
-        teacherRepository.save(teacher);
+
+    @Override
+    public TeacherResponse create(TeacherRequest teacherRequest) {
+        Teacher teacher = teacherMapper.teacherRequestToTeacher(teacherRequest);
+        return teacherMapper.teacherToTeacherResponse(teacherRepository.save(teacher));
     }
+
     @Override
     public void delete(Long id) {
-        Teacher teacher = teacherRepository.findById(id).get();
-        User user = teacher.getUser();
         teacherRepository.deleteById(id);
-        if (user != null) {
-            userRepository.delete(user);
+    }
+
+    @Override
+    public List<TeacherResponse> findAllByNameContaining(String name) {
+        if (name == null) {
+            return null;
         }
-    }
-    @Override
-    public Teacher findByUser(User user) {
-        return teacherRepository.findByUser(user);
+        List<Teacher> teacherList = teacherRepository.findTeacherByNameContaining(name);
+        return teacherMapper.teacherToTeacherResponseList(teacherList);
     }
 
     @Override
-    public List<Teacher> findAllByNameContaining(String name) {
-        return null;
-    }
-
-//    @Override
-//    public List<Teacher> findAllByNameContaining(String name) {
-//        List<User> users = userRepository.findAllByNameContainingAndRole(name, "TEACHER_ROLE");
-//        List<Teacher> teachers = new ArrayList<>();
-//        for (User user : users) {
-//            Teacher teacher = new Teacher(user);
-//            teachers.add(teacher);
-//        }
-//        return teachers;
-//    }
-
-    @Override
-    public Teacher getByName(String name) {
-        return teacherRepository.getByName(name);
-
-}
-
-    @Override
-    public List<Teacher> getAllTeachers() {
-        return null;
-    }
-
-    @Override
-    public Teacher getTeacherById(Long id) {
-        return null;
+    public TeacherResponse getByName(String name) {
+        if (name == null) {
+            return null;
+        }
+        return teacherMapper.teacherToTeacherResponse(teacherRepository.getByName(name));
     }
 
     @Override
     public TeacherResponse getByEmail(String email) {
-        return null;
+        Teacher teacher = teacherRepository.findByEmail(email).orElse(null);
+        return teacherMapper.teacherToTeacherResponse(teacher);
     }
 
-//    @Override
-//    public Teacher getByEmail(String email) {
-//        return teacherRepository.findByEmail(email);
-//    }
+    @Override
+    public TeacherResponse updateById(TeacherRequest teacherRequest, Long id) {
+        Teacher teacher = teacherRepository.findById(id).orElse(null);
+        teacherMapper.update(teacher, teacherRequest);
+        return teacherMapper.teacherToTeacherResponse(teacher);
+    }
 }

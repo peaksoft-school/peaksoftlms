@@ -21,3 +21,16 @@ public interface UserService {
 
 //    List<Teacher> findAllByNameContaining(String name);
 }
+
+
+
+
+
+//
+//
+//Teacher.builder()
+//        .firstName(teacherRequest.getFirstName())
+//        .lastName(teacherRequest.getLastName())
+//        .email(teacherRequest.getEmail())
+//        .password(teacherRequest.getPassword())
+////        .img(teacherRequest.getImg()).build();

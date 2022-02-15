@@ -1,5 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.service;
 
+import kg.peaksoftlms.peaksoftlms.db.dto.TeacherRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.TeacherResponse;
 import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
@@ -8,25 +9,21 @@ import java.util.List;
 
 public interface TeacherService {
 
-    List<Teacher> findAll();
-
-    Teacher findById(Long id);
-
-    void create(User user);
-
-    void update(Teacher teacher);
+    TeacherResponse create(TeacherRequest teacherRequest);
 
     void delete(Long id);
 
-    Teacher findByUser(User user);
+//    TeacherResponse findByUser(User user);
 
-    List<Teacher> findAllByNameContaining(String name);
+    List<TeacherResponse> findAllByNameContaining(String name);
 
-    Teacher getByName(String name);
+    TeacherResponse getByName(String name);
 
-    List<Teacher> getAllTeachers();
+    List<TeacherResponse> getAllTeachers();
 
-    Teacher getTeacherById(Long id);
+    TeacherResponse getTeacherById(Long id);
 
     TeacherResponse getByEmail(String email);
+
+    TeacherResponse updateById (TeacherRequest teacherRequest, Long id);
 }

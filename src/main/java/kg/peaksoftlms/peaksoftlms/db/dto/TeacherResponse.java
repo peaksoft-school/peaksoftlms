@@ -1,16 +1,15 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
-@Getter@Setter
+@Getter
+@Setter
+//@Builder
 public class TeacherResponse {
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
+    private String img;
 }
