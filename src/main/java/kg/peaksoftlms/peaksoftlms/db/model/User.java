@@ -5,44 +5,35 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.List;
 
-import static javax.persistence.CascadeType.*;
-import static javax.persistence.FetchType.*;
-
-@Entity
-@Table(name = "users")
-@AllArgsConstructor
-@NoArgsConstructor
+@MappedSuperclass
 @Getter
 @Setter
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column
-    private String name;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
     @Email(message = "Cannot be empty")
     private String email;
+
     @JsonProperty
     private String password;
 
-    @ManyToMany(fetch = EAGER)
-    private List<Role> role;
-
-//    private Course course;
-//    private String group;
+    private String image;
 
 
     public User(@Email(message = "Cannot be empty") String email, String password) {
         this.email = email;
         this.password = password;
     }
-
-    public User(@Email(message = "Cannot be empty") String email, String password, List<Role> role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
 }

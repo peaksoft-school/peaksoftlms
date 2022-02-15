@@ -67,9 +67,10 @@ public class CourseApi {
 
     @PutMapping("/{id}")
     @Operation(summary = "Для редактирования курсов", description = "Позволяет редактировать курс")
-    public ResponseEntity<Course> updateCourse(@RequestBody Course course, @PathVariable Long id) {
-        courseService.updateCourse(id, course);
-        return new ResponseEntity<>(course, HttpStatus.OK);
+    public ResponseEntity<CourseResponse> updateCourse(@RequestBody CourseRequest courseRequest,
+                                                       @PathVariable Long id) {
+        CourseResponse courseResponse = courseService.updateCourse(id, courseRequest);
+        return new ResponseEntity<>(courseResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

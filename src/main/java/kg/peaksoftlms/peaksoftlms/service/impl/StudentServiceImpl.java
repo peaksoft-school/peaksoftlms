@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
-     @Autowired
-     private StudentRepository studentRepository;
-     @Autowired
-     private UserRepository userRepository;
+
+
+     private final StudentRepository studentRepository;
+     private final UserRepository userRepository;
+
+     public StudentServiceImpl(StudentRepository studentRepository, UserRepository userRepository) {
+          this.studentRepository = studentRepository;
+          this.userRepository = userRepository;
+     }
 
      @Override
      public List<Student> findAll() {
@@ -27,36 +31,15 @@ public class StudentServiceImpl implements StudentService {
      public Student findById(Long id) {
           return studentRepository.findById(id).get();
      }
+
      @Override
-     public Student findByMssv(int mssv) {
-          return studentRepository.findByMssv(mssv);
+     public Student saveStudent(Student student){
+          return studentRepository.save(student);
      }
      @Override
-     public void create(User user, int mssv) {
-          Student student = new Student();
-          if (mssv <= 0) {
-               student.setMssv(getMaxMssv() + 1);
-          } else {
-               student.setMssv(mssv);
-          }
-          studentRepository.save(student);
-     }
-     @Override
-     public void addStudent(Student student){
-          studentRepository.save(student);
-     }
-     @Override
-     public void update(Student student) {
-          studentRepository.save(student);
-     }
-     @Override
-     public void delete(Long id) {
-          Student student = studentRepository.findById(id).get();
-          User user = student.getUser();
+     public Student delete(Long id) {
           studentRepository.deleteById(id);
-          if (user != null) {
-               userRepository.delete(student.getUser());
-          }
+          return studentRepository.findById(id).get();
      }
 
      @Override
@@ -68,25 +51,5 @@ public class StudentServiceImpl implements StudentService {
      public Student findByUser(User user) {
           return studentRepository.findByUser(user);
      }
-//     @Override
-//     public List<Student> findAllByNameContaining(String name) {
-//          List<User> users = userRepository.findAllByNameContainingAndRole(name, "STUDENT");
-//          List<Student> students = new ArrayList<>();
-//          for (User user : users) {
-//               Student student = new Student(user);
-//               students.add(student);
-//          }
-//          return students;
-//     }
-     @Override
-     public int getMaxMssv() {
-          List<Student> students = studentRepository.findAll();
-          int maxMssv = 0;
-          for (Student student : students) {
-               if (maxMssv < student.getMssv()) {
-                    maxMssv = student.getMssv();
-               }
-          }
-          return maxMssv;
-     }
+
 }
