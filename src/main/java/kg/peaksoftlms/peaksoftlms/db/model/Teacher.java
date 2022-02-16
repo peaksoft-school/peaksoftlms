@@ -17,10 +17,10 @@ import static javax.persistence.CascadeType.*;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Teacher extends User {
+@Table(name = "teachers")
+public class Teacher  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Teacher extends User {
     @NotBlank(message = "Have to write last name")
     private String teacherLastName;
     @Email(message = "wrong E-mail address, please check it again")
-    private String teacherEmail;
+    private String email;
     @JsonProperty
     private String password;
     private String teacherImg;
@@ -38,11 +38,12 @@ public class Teacher extends User {
     private LocalDate dateOfCreate;
 
     @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
-    private List<Course> course;
-    @OneToOne
+    private List<Course> courses;
+    @OneToOne(fetch = FetchType.EAGER,cascade = ALL)
     private User user;
 
-    public Teacher(User user) {
+
+    public Teacher() {
     }
 
 }

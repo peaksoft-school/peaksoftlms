@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/groups")
+@RequestMapping("/api/groups")
 @AllArgsConstructor
 @Slf4j
 public class GroupAPI {

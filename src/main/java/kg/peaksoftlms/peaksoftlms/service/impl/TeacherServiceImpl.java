@@ -21,19 +21,24 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> findAll() {
         return teacherRepository.findAll();
     }
+
     @Override
     public Teacher findById(Long id) {
         return teacherRepository.findById(id).get();
     }
-     @Override
+
+    @Override
     public void create(User user) {
-        Teacher teacher = new Teacher(user);
+        Teacher teacher =
+                new Teacher();
         teacherRepository.save(teacher);
     }
-     @Override
+
+    @Override
     public void update(Teacher teacher) {
         teacherRepository.save(teacher);
     }
+
     @Override
     public void delete(Long id) {
         Teacher teacher = teacherRepository.findById(id).get();
@@ -43,35 +48,6 @@ public class TeacherServiceImpl implements TeacherService {
             userRepository.delete(user);
         }
     }
-    @Override
-    public Teacher findByUser(User user) {
-        return teacherRepository.findByUser(user);
-    }
 
-    @Override
-    public List<Teacher> findAllByNameContaining(String name) {
-        return null;
-    }
 
-//    @Override
-//    public List<Teacher> findAllByNameContaining(String name) {
-//        List<User> users = userRepository.findAllByNameContainingAndRole(name, "TEACHER_ROLE");
-//        List<Teacher> teachers = new ArrayList<>();
-//        for (User user : users) {
-//            Teacher teacher = new Teacher(user);
-//            teachers.add(teacher);
-//        }
-//        return teachers;
-//    }
-
-    @Override
-    public Teacher getByName(String name) {
-        return teacherRepository.getByName(name);
-
-}
-
-//    @Override
-//    public Teacher getByEmail(String email) {
-//        return teacherRepository.findByEmail(email);
-//    }
 }

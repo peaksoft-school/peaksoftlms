@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "courses")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

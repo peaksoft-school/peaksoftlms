@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
 import kg.peaksoftlms.peaksoftlms.service.TeacherService;
-import kg.peaksoftlms.peaksoftlms.service.UserService;
 import kg.peaksoftlms.peaksoftlms.service.impl.UserDetailsImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +21,9 @@ import java.util.List;
 @CrossOrigin
 @Tag(name = "Контроллер для управления учителей", description = "Позволяет получить, удалить, добaвить или обновить всех учителей")
 public class TeacherApi {
-    private final UserService userService;
     private final TeacherService teacherService;
 
-        @GetMapping("/getAll")
+        @GetMapping()
         @Operation(summary = "Все учителя", description = "Позволяет получить всех учителей из базы данных")
         public ResponseEntity<List<Teacher>> getAllTeachers() {
             try {
@@ -35,7 +33,7 @@ public class TeacherApi {
             }
         }
 
-        @GetMapping("/getById/{id}")
+        @GetMapping("/{id}")
         @Operation(summary = "teacher(id)", description = "Позволяет получить учителя по 'id'")
         public ResponseEntity<Teacher> getById(@PathVariable Long id) {
             try {
@@ -45,38 +43,19 @@ public class TeacherApi {
             }
         }
 
-        @GetMapping("/getByUsername/{name}")
-        @Operation(summary = "teacher(name)", description = "Позволяет получить учителя по имени")
-        public ResponseEntity<Teacher> getByUsername(@PathVariable String name) {
-            try {
-                return new ResponseEntity<>(teacherService.getByName(name), HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
 
-//        @GetMapping("/getByEmail/{email}")
-//        @Operation(summary = "teacher(email)", description = "Позволяет получить учителя по электронному адресу")
-//        public ResponseEntity<Optional<Teacher>> getByEmail(@PathVariable String email) {
-//            try {
-//                return new ResponseEntity<>(teacherService.getByEmail(email), HttpStatus.OK);
-//            } catch (Exception e) {
-//                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//            }
-//        }
-
-        @PostMapping("/addTeacher")
+        @PostMapping("")
         @Operation(summary = "Добавление учителя", description = "Позволяет добавить нового учителя")
         public ResponseEntity<?> saveTeacher(@RequestBody Teacher teacher) {
             try {
-                teacherService.create(teacher);
+//                teacherService.create(teacher);
                 return new ResponseEntity<>(HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
 
-        @DeleteMapping("/deleteBy/{id}")
+        @DeleteMapping("/{id}")
         @Operation(summary = "Удаление учителя", description = "Позволяет удалить учителя")
         public ResponseEntity<?> deleteById(@PathVariable Long id) {
             try {
@@ -87,7 +66,7 @@ public class TeacherApi {
             }
         }
 
-        @GetMapping("/getTeacher")
+        @GetMapping("/me")
         @Operation(summary = "Получения учителя", description = "Позволяет получить учителя")
         public ResponseEntity<Teacher> getTeacher(@AuthenticationPrincipal UserDetailsImpl userDetails) {
             try {
@@ -97,7 +76,7 @@ public class TeacherApi {
             }
         }
 
-        @PutMapping("/updateTeacher")
+        @PutMapping("")
         @Operation(summary = "Обновление учителя", description = "Позволяет обновить учителя")
         public ResponseEntity<?> editTeacherPage(@RequestBody Teacher teacher) {
             try {

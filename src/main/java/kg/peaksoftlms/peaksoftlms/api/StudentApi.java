@@ -2,10 +2,10 @@ package kg.peaksoftlms.peaksoftlms.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kg.peaksoftlms.peaksoftlms.db.dto.StudentRequest;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.service.StudentService;
-import kg.peaksoftlms.peaksoftlms.service.UserService;
 import kg.peaksoftlms.peaksoftlms.service.impl.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,8 @@ import java.util.Optional;
 public class StudentApi {
 
         private final StudentService studentService;
-        private  final UserService userService;
 
-        @GetMapping("/getAll")
+        @GetMapping("")
         @Operation(summary = "Все студенты", description = "Позволяет получить всех студентов из базы данных")
         public ResponseEntity<List<Student>> getAllStudents() {
             try {
@@ -36,39 +35,21 @@ public class StudentApi {
             }
         }
 
-        @GetMapping("/getById/{id}")
+        @GetMapping("/{id}")
         @Operation(summary = "Студент(id)", description = "Позволяет получить студента по 'id'")
-        public ResponseEntity<Optional<User>> getById(@PathVariable Long id) {
+        public ResponseEntity<Student> getById(@PathVariable Long id) {
             try {
-                return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+                return new ResponseEntity<>(studentService.findById(id), HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
 
-        @GetMapping("/getByUsername/{name}")
-        @Operation(summary = "Студент(name)", description = "Позволяет получить студента по имени")
-        public ResponseEntity<Student> getByName(@PathVariable String name) {
-            try {
-                return new ResponseEntity<>(studentService.getByName(name), HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
 
-//        @GetMapping("/getByEmail/{email}")
-//        @Operation(summary = "Студент(email)", description = "Позволяет получить студента по по электронному адресу")
-//        public ResponseEntity<Optional<Student >> getByEmail(@PathVariable String email) {
-//            try {
-//                return new ResponseEntity<>(studentService.findByEmail(email), HttpStatus.OK);
-//            } catch (Exception e) {
-//                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//            }
-//        }
 
-        @PostMapping("/addStudent")
+        @PostMapping("")
         @Operation(summary = "Добавление ", description = "Позволяет добавить нового студента")
-        public ResponseEntity<?> saveUser(@RequestBody Student student) {
+        public ResponseEntity<?> saveUser(@RequestBody StudentRequest student) {
             try {
                 studentService.addStudent(student);
                 return new ResponseEntity<>(HttpStatus.OK);
@@ -77,7 +58,7 @@ public class StudentApi {
             }
         }
 
-        @DeleteMapping("/deleteBy/{id}")
+        @DeleteMapping("/{id}")
         @Operation(summary = "Удаление студента", description = "Позволяет удалить студента")
         public ResponseEntity<?> deleteById(@PathVariable Long id) {
             try {
@@ -88,7 +69,7 @@ public class StudentApi {
             }
         }
 
-        @GetMapping("/getStudent")
+        @GetMapping("/me")
         @Operation(summary = "Получения студента", description = "Позволяет получить студента")
         public ResponseEntity<Student> getCurrentStudent(@AuthenticationPrincipal UserDetailsImpl userDetails) {
             try {
@@ -98,7 +79,7 @@ public class StudentApi {
             }
         }
 
-        @PutMapping("/updateStudent")
+        @PutMapping("")
         @Operation(summary = "Обновление студента", description = "Позволяет обновить студента")
         public ResponseEntity<?> editStudent(@RequestBody Student student) {
             try {

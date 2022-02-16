@@ -17,9 +17,4 @@ public interface TeacherService {
 
     void delete(Long id);
 
-    Teacher findByUser(User user);
-
-    List<Teacher> findAllByNameContaining(String name);
-
-    Teacher getByName(String name);
 }

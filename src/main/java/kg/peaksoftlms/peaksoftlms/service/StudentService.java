@@ -1,5 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.service;
 
+import kg.peaksoftlms.peaksoftlms.db.dto.StudentRequest;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 
@@ -11,20 +12,12 @@ public interface StudentService {
 
     Student findById(Long id);
 
-    Student findByMssv(int mssv);
+    void create(User user);
 
-    void create(User user, int mssv);
-
-    void addStudent(Student student);
+    void addStudent(StudentRequest student);
 
     void update(Student student);
 
     void delete(Long id);
-    Student getByName(String name);
 
-    Student findByUser(User user);
-
-//    List<Student> findAllByNameContaining(String name);
-
-    int getMaxMssv();
 }

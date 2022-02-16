@@ -1,23 +1,30 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
+import kg.peaksoftlms.peaksoftlms.db.dto.StudentRequest;
+import kg.peaksoftlms.peaksoftlms.db.model.Role;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
+import kg.peaksoftlms.peaksoftlms.db.repository.RoleRepository;
 import kg.peaksoftlms.peaksoftlms.db.repository.StudentRepository;
 import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
 import kg.peaksoftlms.peaksoftlms.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
-     @Autowired
-     private StudentRepository studentRepository;
-     @Autowired
-     private UserRepository userRepository;
+     private final StudentRepository studentRepository;
+     private final UserRepository userRepository;
+     private final PasswordEncoder passwordEncoder;
+     private final RoleRepository roleRepository;
 
      @Override
      public List<Student> findAll() {
@@ -27,22 +34,37 @@ public class StudentServiceImpl implements StudentService {
      public Student findById(Long id) {
           return studentRepository.findById(id).get();
      }
+
      @Override
-     public Student findByMssv(int mssv) {
-          return studentRepository.findByMssv(mssv);
+     public void create(User user) {
+
      }
+
      @Override
-     public void create(User user, int mssv) {
-          Student student = new Student(user);
-          if (mssv <= 0) {
-               student.setMssv(getMaxMssv() + 1);
-          } else {
-               student.setMssv(mssv);
-          }
-          studentRepository.save(student);
-     }
-     @Override
-     public void addStudent(Student student){
+     public void addStudent(StudentRequest request){
+
+          Role role = roleRepository.getRoleByRoleName("ROLE_STUDENT");
+          List<Role> roles = new ArrayList<>();
+          roles.add(role);
+
+          Student student = Student.builder()
+                  .email(request.getEmail())
+                  .lastName(request.getLastName())
+                  .firstName(request.getFirstName())
+                  .password(passwordEncoder.encode(request.getPassword()))
+                  .studentImg(request.getStudentImg())
+                  .build();
+
+          User user = User.builder()
+                  .email(request.getEmail())
+                  .password(passwordEncoder.encode(request.getPassword()))
+                  .build();
+
+          user.setRole(roles);
+          User resultUser = userRepository.save(user);
+          student.setId(resultUser.getId());
+          student.setUser(user);
+          System.out.println(student);
           studentRepository.save(student);
      }
      @Override
@@ -59,34 +81,5 @@ public class StudentServiceImpl implements StudentService {
           }
      }
 
-     @Override
-     public Student getByName(String name) {
-          return studentRepository.getByName(name);
-     }
 
-     @Override
-     public Student findByUser(User user) {
-          return studentRepository.findByUser(user);
-     }
-//     @Override
-//     public List<Student> findAllByNameContaining(String name) {
-//          List<User> users = userRepository.findAllByNameContainingAndRole(name, "STUDENT");
-//          List<Student> students = new ArrayList<>();
-//          for (User user : users) {
-//               Student student = new Student(user);
-//               students.add(student);
-//          }
-//          return students;
-//     }
-     @Override
-     public int getMaxMssv() {
-          List<Student> students = studentRepository.findAll();
-          int maxMssv = 0;
-          for (Student student : students) {
-               if (maxMssv < student.getMssv()) {
-                    maxMssv = student.getMssv();
-               }
-          }
-          return maxMssv;
-     }
 }
