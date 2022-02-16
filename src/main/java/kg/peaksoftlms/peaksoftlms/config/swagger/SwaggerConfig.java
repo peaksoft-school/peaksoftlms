@@ -19,7 +19,7 @@ public class SwaggerConfig {
                                 .contact(
                                         new Contact()
                                                 .name("Max from Java-3")
-                                                .name("Team: Max, Aida, Beksultan, Atabek")
+                                                .name("Team: Max, Aida, Atabek")
                                 )
                 );
     }
