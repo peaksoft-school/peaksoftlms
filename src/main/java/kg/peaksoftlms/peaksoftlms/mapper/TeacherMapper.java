@@ -67,6 +67,6 @@ public class TeacherMapper {
         teacher.setFirstName(teacherRequest.getFirstName());
         teacher.setLastName(teacherRequest.getLastName());
         teacher.setPassword(teacherRequest.getPassword());
-        teacher.setImg(teacherRequest.getImg());
+        teacher.setImage(teacherRequest.getImg());
     }
 }
