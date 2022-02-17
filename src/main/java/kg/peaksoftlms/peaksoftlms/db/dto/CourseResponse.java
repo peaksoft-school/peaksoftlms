@@ -1,14 +1,11 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class CourseResponse {
@@ -17,6 +14,11 @@ public class CourseResponse {
     private String name;
     private String description;
     private String img;
-    private LocalDate dateOfCreate;
-//    private List<TeacherObject> teacher;
+    private LocalDate createdAt;
+
+    //private List<Teacher> teacher;
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt.toLocalDate();
+    }
 }
