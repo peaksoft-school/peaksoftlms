@@ -2,21 +2,23 @@ package kg.peaksoftlms.peaksoftlms.service.courseService;
 
 import kg.peaksoftlms.peaksoftlms.db.dto.CourseRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.CourseResponse;
-import kg.peaksoftlms.peaksoftlms.db.model.Course;
+import kg.peaksoftlms.peaksoftlms.db.dto.TeacherIdForCourseRequest;
 
 import java.util.List;
 
 public interface CourseService {
 
-    List<Course> getAllCourses();
+    List<CourseResponse> getAllCourses();
 
-    Course getCourseById(Long id);
+    CourseResponse getCourseById(Long id);
 
-    Course getCourseByName(String name);
+    CourseResponse getCourseByName(String name);
 
-    Course saveCourse(Course course);
+    CourseResponse saveCourse(CourseRequest courseRequest);
 
     CourseResponse updateCourse(Long id, CourseRequest courseRequest);
 
     void deleteCourse(Long id);
+
+    CourseResponse addTeacherToCourse(Long courseId, TeacherIdForCourseRequest teacherIdList);
 }

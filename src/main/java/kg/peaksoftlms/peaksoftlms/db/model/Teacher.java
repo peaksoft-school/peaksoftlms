@@ -1,9 +1,9 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -20,7 +20,7 @@ import static javax.persistence.CascadeType.*;
 @Getter
 @Setter
 @Table(name = "teachers")
-public class Teacher  {
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,12 +38,12 @@ public class Teacher  {
     private LocalDate dateOfCreate;
 
     @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    @JsonIgnore
     private List<Course> courses;
-    @OneToOne(fetch = FetchType.EAGER,cascade = ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = ALL)
     private User user;
 
 
     public Teacher() {
     }
-
 }
