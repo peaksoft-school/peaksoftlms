@@ -1,85 +1,99 @@
 package kg.peaksoftlms.peaksoftlms.service.impl;
 
 import kg.peaksoftlms.peaksoftlms.db.dto.StudentRequest;
+import kg.peaksoftlms.peaksoftlms.db.dto.StudentResponse;
+import kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat;
 import kg.peaksoftlms.peaksoftlms.db.model.Role;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.RoleRepository;
 import kg.peaksoftlms.peaksoftlms.db.repository.StudentRepository;
 import kg.peaksoftlms.peaksoftlms.db.repository.UserRepository;
+import kg.peaksoftlms.peaksoftlms.exeption.ResourceNotFoundException;
+import kg.peaksoftlms.peaksoftlms.mapper.StudentMapper;
 import kg.peaksoftlms.peaksoftlms.service.StudentService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import static kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat.OFFLINE;
+import static kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat.ONLINE;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
-     private final StudentRepository studentRepository;
-     private final UserRepository userRepository;
-     private final PasswordEncoder passwordEncoder;
-     private final RoleRepository roleRepository;
+    private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+    private final StudentMapper mapper;
 
-     @Override
-     public List<Student> findAll() {
-          return studentRepository.findAll();
-     }
-     @Override
-     public Student findById(Long id) {
-          return studentRepository.findById(id).get();
-     }
+    @Override
+    public List<StudentResponse> findAll() {
+        return mapper.studentListToStudentResponseList(studentRepository.findAll());
+    }
 
-     @Override
-     public void create(User user) {
+    @Override
+    public StudentResponse findById(Long id) {
+        return mapper.studentToStudentResponse(studentRepository.findById(id).orElseThrow(() -> {
+            log.info("Not found student with id: {}", id);
+            throw new ResourceNotFoundException("Not found student with id: " + id);
+        }));
+    }
 
-     }
+    @Override
+    public StudentResponse saveNew(StudentRequest request) {
+        User user = createUser(request);
+        Student student = new Student();
+        mapper.studentRequestToStudent(student, request);
+        student.setId(user.getId());
+        student.setUser(user);
+        return mapper.studentToStudentResponse(studentRepository.save(student));
+    }
 
-     @Override
-     public void addStudent(StudentRequest request){
+    @Override
+    public StudentResponse update(Long id, StudentRequest studentRequest) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> {
+            log.info("Not found student with id: {}", id);
+            throw new ResourceNotFoundException("Not found student with id: " + id);
+        });
+        userRepository.save(updateUser(studentRequest, student));
+        mapper.updateStudent(student, studentRequest);
+        return mapper.studentToStudentResponse(studentRepository.save(student));
+    }
 
-          Role role = roleRepository.getRoleByRoleName("ROLE_STUDENT");
-          List<Role> roles = new ArrayList<>();
-          roles.add(role);
+    @Override
+    public void delete(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> {
+            log.info("Not found student with id: {}", id);
+            throw new ResourceNotFoundException("Not found student with id: " + id);
+        });
+        User user = student.getUser();
+        studentRepository.deleteById(id);
+        if (user != null) {
+            userRepository.delete(student.getUser());
+        }
+    }
 
-          Student student = Student.builder()
-                  .email(request.getEmail())
-                  .lastName(request.getLastName())
-                  .firstName(request.getFirstName())
-                  .password(passwordEncoder.encode(request.getPassword()))
-                  .studentImg(request.getStudentImg())
-                  .build();
+    private User createUser(StudentRequest request) {
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepository.getRoleByRoleName("ROLE_STUDENT"));
+        User newUser = new User();
+        newUser.setEmail(request.getEmail());
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+        newUser.setRole(roles);
+        return userRepository.save(newUser);
+    }
 
-          User user = User.builder()
-                  .email(request.getEmail())
-                  .password(passwordEncoder.encode(request.getPassword()))
-                  .build();
-
-          user.setRole(roles);
-          User resultUser = userRepository.save(user);
-          student.setId(resultUser.getId());
-          student.setUser(user);
-          System.out.println(student);
-          studentRepository.save(student);
-     }
-     @Override
-     public void update(Student student) {
-          studentRepository.save(student);
-     }
-     @Override
-     public void delete(Long id) {
-          Student student = studentRepository.findById(id).get();
-          User user = student.getUser();
-          studentRepository.deleteById(id);
-          if (user != null) {
-               userRepository.delete(student.getUser());
-          }
-     }
-
-
+    private User updateUser(StudentRequest studentRequest, Student student) {
+        User user = student.getUser();
+        user.setEmail(studentRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(studentRequest.getPassword()));
+        return user;
+    }
 }

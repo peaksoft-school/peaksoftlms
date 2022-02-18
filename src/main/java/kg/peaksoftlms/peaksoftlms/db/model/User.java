@@ -1,7 +1,10 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,8 +16,8 @@ import static javax.persistence.FetchType.EAGER;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "users")
 @Builder
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +31,6 @@ public class User {
     @ManyToMany(fetch = EAGER)
     private List<Role> role;
 
-
     public User(@Email(message = "Cannot be empty") String email, String password) {
         this.email = email;
         this.password = password;
@@ -39,7 +41,6 @@ public class User {
         this.password = password;
         this.role = role;
     }
-
 
     public User() {
     }

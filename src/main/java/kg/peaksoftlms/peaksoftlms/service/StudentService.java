@@ -1,23 +1,19 @@
 package kg.peaksoftlms.peaksoftlms.service;
 
 import kg.peaksoftlms.peaksoftlms.db.dto.StudentRequest;
-import kg.peaksoftlms.peaksoftlms.db.model.Student;
-import kg.peaksoftlms.peaksoftlms.db.model.User;
+import kg.peaksoftlms.peaksoftlms.db.dto.StudentResponse;
 
 import java.util.List;
 
 public interface StudentService {
 
-    List<Student> findAll();
+    List<StudentResponse> findAll();
 
-    Student findById(Long id);
+    StudentResponse findById(Long id);
 
-    void create(User user);
+    StudentResponse saveNew(StudentRequest student);
 
-    void addStudent(StudentRequest student);
-
-    void update(Student student);
+    StudentResponse update(Long id, StudentRequest studentRequest);
 
     void delete(Long id);
-
 }
