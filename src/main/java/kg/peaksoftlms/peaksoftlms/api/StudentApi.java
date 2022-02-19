@@ -3,92 +3,68 @@ package kg.peaksoftlms.peaksoftlms.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kg.peaksoftlms.peaksoftlms.db.dto.StudentRequest;
-import kg.peaksoftlms.peaksoftlms.db.model.Student;
-import kg.peaksoftlms.peaksoftlms.db.model.User;
+import kg.peaksoftlms.peaksoftlms.db.dto.StudentResponse;
 import kg.peaksoftlms.peaksoftlms.service.StudentService;
-import kg.peaksoftlms.peaksoftlms.service.impl.UserDetailsImpl;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/students")
 @CrossOrigin
 @Tag(name = "Контроллер для управления студентами", description = "Позволяет получить, удалить, добaвить или обновить всех студентов")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class StudentApi {
 
-        private final StudentService studentService;
+    private final StudentService studentService;
 
-        @GetMapping("")
-        @Operation(summary = "Все студенты", description = "Позволяет получить всех студентов из базы данных")
-        public ResponseEntity<List<Student>> getAllStudents() {
-            try {
-                return new ResponseEntity<>(studentService.findAll(), HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
+    @GetMapping("")
+    @Operation(summary = "Для получения всех студентов", description = "Позволяет получить всех студентов из базы данных")
+    public ResponseEntity<List<StudentResponse>> getAllStudents() {
+        return new ResponseEntity<>(studentService.findAll(), HttpStatus.OK);
+    }
 
-        @GetMapping("/{id}")
-        @Operation(summary = "Студент(id)", description = "Позволяет получить студента по 'id'")
-        public ResponseEntity<Student> getById(@PathVariable Long id) {
-            try {
-                return new ResponseEntity<>(studentService.findById(id), HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
+    @GetMapping("/{id}")
+    @Operation(summary = "Для получения студента по ID", description = "Позволяет получить студента по ID")
+    public ResponseEntity<StudentResponse> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(studentService.findById(id), HttpStatus.OK);
+    }
 
+    @PostMapping("")
+    @Operation(summary = "Добавление нового студента", description = "Позволяет добавить нового студента")
+    public ResponseEntity<StudentResponse> saveUser(@Valid @RequestBody StudentRequest studentRequest) {
+        return new ResponseEntity<>(studentService.saveNew(studentRequest), HttpStatus.CREATED);
+    }
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Для удаление студента", description = "Позволяет удалить студента по ID")
+    public ResponseEntity<ResponseEntity> deleteById(@PathVariable Long id) {
+        studentService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-        @PostMapping("")
-        @Operation(summary = "Добавление ", description = "Позволяет добавить нового студента")
-        public ResponseEntity<?> saveUser(@RequestBody StudentRequest student) {
-            try {
-                studentService.addStudent(student);
-                return new ResponseEntity<>(HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
+    @PutMapping("/{id}")
+    @Operation(summary = "Для обновление студента", description = "Позволяет обновить студента")
+    public ResponseEntity<StudentResponse> editStudent(@PathVariable Long id,
+                                                       @RequestBody StudentRequest studentRequest) {
+        return new ResponseEntity<>(studentService.update(id, studentRequest), HttpStatus.OK);
+    }
 
-        @DeleteMapping("/{id}")
-        @Operation(summary = "Удаление студента", description = "Позволяет удалить студента")
-        public ResponseEntity<?> deleteById(@PathVariable Long id) {
-            try {
-              studentService.delete(id);
-                return new ResponseEntity<>(HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
-
-        @GetMapping("/me")
-        @Operation(summary = "Получения студента", description = "Позволяет получить студента")
-        public ResponseEntity<Student> getCurrentStudent(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-            try {
-                return new ResponseEntity<>(studentService.findById(userDetails.getId()), HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
-
-        @PutMapping("")
-        @Operation(summary = "Обновление студента", description = "Позволяет обновить студента")
-        public ResponseEntity<?> editStudent(@RequestBody Student student) {
-            try {
-                studentService.update(student);
-                return new ResponseEntity<>(HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
+//    @GetMapping("/me")
+//    @Operation(summary = "Получения студента", description = "Позволяет получить студента")
+//    public ResponseEntity<StudentResponse> getCurrentStudent(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        try {
+//            return new ResponseEntity<>(studentService.findById(userDetails.getId()), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//    }
 }
 
 
