@@ -35,7 +35,7 @@ public class StudentMapper {
         student.setFirstName(request.getFirstName());
         student.setPhoneNumber(request.getPhoneNumber());
         student.setPassword(passwordEncoder.encode(request.getPassword()));
-        student.setLearningFormat(request.getLearningFormat());
+//        student.setLearningFormat(request.getLearningFormat());
         return student;
     }
 
@@ -44,7 +44,7 @@ public class StudentMapper {
         student.setLastName(request.getLastName());
         student.setFirstName(request.getFirstName());
         student.setPhoneNumber(request.getPhoneNumber());
-        student.setLearningFormat(request.getLearningFormat());
+//        student.setLearningFormat(request.getLearningFormat());
         return student;
     }
 }

@@ -1,7 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat;
 import kg.peaksoftlms.peaksoftlms.db.model.Group;
 import lombok.Data;
 import lombok.Getter;
@@ -28,6 +27,6 @@ public class StudentRequest {
     private String phoneNumber;
     private String email;
     private String password;
-    private LearningFormat learningFormat;
+//    private LearningFormat learningFormat;
     //private List<Group> groups;
 }

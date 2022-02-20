@@ -1,7 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -39,8 +38,8 @@ public class Student {
     private String password;
     private String img;
 
-    @Enumerated(EnumType.STRING)
-    private LearningFormat learningFormat;
+//    @Enumerated(EnumType.STRING)
+//    private LearningFormat learningFormat;
 
     @CreatedDate
     @CreationTimestamp

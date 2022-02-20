@@ -2,7 +2,7 @@ package kg.peaksoftlms.peaksoftlms.service.impl;
 
 import kg.peaksoftlms.peaksoftlms.db.dto.StudentRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.StudentResponse;
-import kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat;
+
 import kg.peaksoftlms.peaksoftlms.db.model.Role;
 import kg.peaksoftlms.peaksoftlms.db.model.Student;
 import kg.peaksoftlms.peaksoftlms.db.model.User;
@@ -20,8 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat.OFFLINE;
-import static kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat.ONLINE;
+
 
 @Service
 @Slf4j
