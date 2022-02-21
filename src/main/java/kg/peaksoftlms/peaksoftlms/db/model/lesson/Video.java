@@ -17,8 +17,9 @@ public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String videoName;
+    private String name;
     private String video;
+    private String description;
     @ManyToOne
     private Lesson lesson;
 }
