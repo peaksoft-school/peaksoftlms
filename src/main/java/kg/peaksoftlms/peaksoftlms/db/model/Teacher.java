@@ -23,18 +23,18 @@ import static javax.persistence.CascadeType.*;
 public class Teacher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Have to create new responsible person")
+//    @NotBlank(message = "Have to create new responsible person")
     private String teacherName;
-    @NotBlank(message = "Have to write last name")
+//    @NotBlank(message = "Have to write last name")
     private String teacherLastName;
     @Email(message = "wrong E-mail address, please check it again")
     private String email;
     @JsonProperty
     private String password;
     private String teacherImg;
-    @NotNull(message = "date of create is required!")
+//    @NotNull(message = "date of create is required!")
     private LocalDate dateOfCreate;
 
     @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
