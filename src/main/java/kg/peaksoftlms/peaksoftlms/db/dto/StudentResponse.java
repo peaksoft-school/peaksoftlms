@@ -1,6 +1,5 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
-import kg.peaksoftlms.peaksoftlms.db.enums.LearningFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,7 @@ public class StudentResponse {
     private String phoneNumber;
     private String email;
     private String password;
-    private LearningFormat learningFormat;
+//    private LearningFormat learningFormat;
 
     //private List<Group> groups;
 }
