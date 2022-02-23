@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -26,15 +28,20 @@ public class Teacher {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //    @NotBlank(message = "Have to create new responsible person")
-    private String teacherName;
+    private String firstName;
 //    @NotBlank(message = "Have to write last name")
-    private String teacherLastName;
+    private String LastName;
     @Email(message = "wrong E-mail address, please check it again")
     private String email;
     @JsonProperty
     private String password;
-    private String teacherImg;
-//    @NotNull(message = "date of create is required!")
+    private String img;
+
+    private int phoneNumber;
+    private String specialization;
+
+    @CreatedDate
+    @CreationTimestamp
     private LocalDate dateOfCreate;
 
     @ManyToMany(mappedBy = "teacher", cascade = {DETACH, MERGE, PERSIST, REFRESH})
@@ -42,7 +49,6 @@ public class Teacher {
     private List<Course> courses;
     @OneToOne(fetch = FetchType.EAGER, cascade = ALL)
     private User user;
-
 
     public Teacher() {
     }
