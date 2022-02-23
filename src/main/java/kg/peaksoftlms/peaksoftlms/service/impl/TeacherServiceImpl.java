@@ -71,6 +71,7 @@ public class TeacherServiceImpl implements TeacherService {
             log.info("Not found teacher with this id: {}", id);
             throw new ResourceNotFoundException("Not found teacher with this id: " + id);
         }));
+
         mapper.teacherUpdate(teacherRequest, teacher);
         userRepository.save(updateUser(teacherRequest, teacher));
         teacherRepository.save(teacher);
