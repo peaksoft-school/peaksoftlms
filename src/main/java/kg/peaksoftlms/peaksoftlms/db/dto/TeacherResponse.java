@@ -1,15 +1,14 @@
 package kg.peaksoftlms.peaksoftlms.db.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
 @NoArgsConstructor
-@Getter@Setter
+@Getter
+@Setter
 public class TeacherResponse {
     private Long id;
     private String firstName;

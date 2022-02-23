@@ -2,11 +2,11 @@ package kg.peaksoftlms.peaksoftlms.service;
 
 import kg.peaksoftlms.peaksoftlms.db.dto.TeacherRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.TeacherResponse;
-import kg.peaksoftlms.peaksoftlms.db.model.Teacher;
-import kg.peaksoftlms.peaksoftlms.db.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface TeacherService {
 
     List<TeacherResponse> findAll();
