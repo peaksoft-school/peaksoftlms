@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/students")
@@ -26,34 +28,35 @@ public class StudentApi {
 
     @GetMapping("")
     @Operation(summary = "Для получения всех студентов", description = "Позволяет получить всех студентов из базы данных")
-    public ResponseEntity<List<StudentResponse>> getAllStudents() {
-        return new ResponseEntity<>(studentService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<StudentResponse>> getAllStudents(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                                                @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
+        return new ResponseEntity<>(studentService.findAll(page, size), OK);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Для получения студента по ID", description = "Позволяет получить студента по ID")
     public ResponseEntity<StudentResponse> getById(@PathVariable Long id) {
-        return new ResponseEntity<>(studentService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.findById(id), OK);
     }
 
     @PostMapping("")
     @Operation(summary = "Добавление нового студента", description = "Позволяет добавить нового студента")
     public ResponseEntity<StudentResponse> saveUser(@Valid @RequestBody StudentRequest studentRequest) {
-        return new ResponseEntity<>(studentService.saveNew(studentRequest), HttpStatus.CREATED);
+        return new ResponseEntity<>(studentService.saveNew(studentRequest), CREATED);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Для удаление студента", description = "Позволяет удалить студента по ID")
     public ResponseEntity<ResponseEntity> deleteById(@PathVariable Long id) {
         studentService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(OK);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Для обновление студента", description = "Позволяет обновить студента")
     public ResponseEntity<StudentResponse> editStudent(@PathVariable Long id,
                                                        @RequestBody StudentRequest studentRequest) {
-        return new ResponseEntity<>(studentService.update(id, studentRequest), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.update(id, studentRequest), OK);
     }
 
 //    @GetMapping("/me")
