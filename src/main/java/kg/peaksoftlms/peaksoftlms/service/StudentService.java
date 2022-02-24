@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudentService {
 
-    List<StudentResponse> findAll();
+    List<StudentResponse> findAll(int page, int size);
 
     StudentResponse findById(Long id);
 

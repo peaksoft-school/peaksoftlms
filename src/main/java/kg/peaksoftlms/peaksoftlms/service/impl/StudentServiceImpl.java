@@ -14,6 +14,7 @@ import kg.peaksoftlms.peaksoftlms.mapper.StudentMapper;
 import kg.peaksoftlms.peaksoftlms.service.StudentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,8 @@ public class StudentServiceImpl implements StudentService {
     private final StudentMapper mapper;
 
     @Override
-    public List<StudentResponse> findAll() {
-        return mapper.studentListToStudentResponseList(studentRepository.findAll());
+    public List<StudentResponse> findAll(int page, int size) {
+        return mapper.studentListToStudentResponseList(studentRepository.findAll(PageRequest.of(page, size)).getContent());
     }
 
     @Override
