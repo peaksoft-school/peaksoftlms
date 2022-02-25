@@ -37,31 +37,24 @@ public class GroupAPI {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Для получения группы по ID", description = "Позволяет получить групу по ID")
+    @Operation(summary = "Для получения группы по ID", description = "Позволяет получить группу по ID")
     public ResponseEntity<GroupResponse> getGroupById(@PathVariable Long id) {
         return new ResponseEntity<>(groupMapper.groupToGroupResponse(groupService.getById(id)), HttpStatus.OK);
     }
-//
-//        @GetMapping("/name/{name}")
-//        public ResponseEntity<GroupResponse> getGroupByName(@PathVariable String name) {
-//            Group group = groupService.getGroupByName(name);
-//            if (group == null) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            }
-//            return new ResponseEntity<>(groupMapper
-//                    .groupToGroupResponse(group), HttpStatus.OK);
-//        }
-//
-        @PutMapping("/save/group")
-        public ResponseEntity<Group> updateGroup(@RequestBody Group group) {
-            return new ResponseEntity<>(groupService.saveGroup(group), HttpStatus.OK);
-        }
 
-        @DeleteMapping("/{id}")
-        public ResponseEntity<GroupResponse> deleteGroup(@PathVariable Long id) {
-            groupService.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+    @PutMapping("/{id}")
+    @Operation(summary = "Для редактирования группы", description = "Позволяет редактировать группу")
+    public ResponseEntity<GroupResponse> updateGroup(@PathVariable Long id,@RequestBody GroupRequest groupRequest) {
+        System.err.println("h");
+        groupRequest.setId(id);
+        return new ResponseEntity<>(groupService.saveGroup(groupRequest), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<GroupResponse> deleteGroup(@PathVariable Long id) {
+
+        return new ResponseEntity<>(groupService.deleteById(id),HttpStatus.OK);
+    }
 }
 
 

@@ -3,8 +3,11 @@ package kg.peaksoftlms.peaksoftlms.service.impl;
 import kg.peaksoftlms.peaksoftlms.db.dto.GroupRequest;
 import kg.peaksoftlms.peaksoftlms.db.dto.GroupResponse;
 import kg.peaksoftlms.peaksoftlms.db.model.Group;
+import kg.peaksoftlms.peaksoftlms.db.model.Student;
+import kg.peaksoftlms.peaksoftlms.db.model.User;
 import kg.peaksoftlms.peaksoftlms.db.repository.GroupRepository;
 import kg.peaksoftlms.peaksoftlms.exceptions.AlreadyExistsException;
+import kg.peaksoftlms.peaksoftlms.exeption.ResourceNotFoundException;
 import kg.peaksoftlms.peaksoftlms.mapper.GroupMapper;
 import kg.peaksoftlms.peaksoftlms.service.GroupService;
 import lombok.RequiredArgsConstructor;
@@ -54,19 +57,24 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findById(id).get();
     }
 
+//    @Override
+//    public GroupResponse updateById(GroupRequest groupRequest) {
+//        return groupMapper.groupToGroupResponse(groupRepository
+//                .save(groupMapper.groupRequestToGroup(groupRequest)));
+//    }
+
     @Override
-    public GroupResponse updateById(GroupRequest groupRequest) {
-        return null;
+    public GroupResponse deleteById(Long id) {
+        Group group = groupRepository.findById(id).get();
+//        {log.info("Not found group with id: {}", id);
+//            throw new ResourceNotFoundException("Not found group with id: " + id);
+//        }
+        groupRepository.deleteById(id);
+        return groupMapper.groupToGroupResponse(group);
     }
 
     @Override
-    public Group deleteById(Long id) {
-         groupRepository.deleteById(id);
-         return groupRepository.findById(id).get();
-    }
-
-    @Override
-    public Group saveGroup(Group group) {
-        return groupRepository.save(group);
+    public GroupResponse saveGroup(GroupRequest groupRequest) {
+        return groupMapper.groupToGroupResponse(groupRepository.save(groupMapper.groupRequestToGroup(groupRequest)));
     }
 }
