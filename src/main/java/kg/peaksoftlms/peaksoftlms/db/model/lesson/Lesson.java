@@ -25,8 +25,8 @@ public class Lesson {
     private Long id;
     @NotBlank
     private String name;
-    @OneToMany(mappedBy = "lesson", cascade = ALL)
-    private List<Test> tests;
+//    @OneToMany(mappedBy = "lesson", cascade = ALL)
+//    private List<Test> tests;
     @OneToMany(mappedBy = "lesson", cascade = ALL)
     private List<Task> tasks;
     @OneToMany(mappedBy = "lesson", cascade = ALL)
