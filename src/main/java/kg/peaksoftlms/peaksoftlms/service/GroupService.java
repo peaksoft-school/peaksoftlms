@@ -13,9 +13,9 @@ public interface GroupService {
 
     Group getById(Long id);
 
-    GroupResponse updateById(GroupRequest groupRequest);
+//    GroupResponse updateById(GroupRequest groupRequest);
 
-    Group deleteById(Long id);
+    GroupResponse deleteById(Long id);
 
-    Group saveGroup(Group group);
+    GroupResponse saveGroup(GroupRequest groupRequest);
 }
