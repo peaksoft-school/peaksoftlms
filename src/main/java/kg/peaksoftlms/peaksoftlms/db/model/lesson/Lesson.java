@@ -24,7 +24,7 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    private String lessonName;
+    private String name;
     @OneToMany(mappedBy = "lesson", cascade = ALL)
     private List<Test> tests;
     @OneToMany(mappedBy = "lesson", cascade = ALL)
@@ -33,6 +33,7 @@ public class Lesson {
     private List<Video> videos;
     @OneToMany(mappedBy = "lesson", cascade = ALL)
     private List<Presentation> presentations;
+    //@ElementCollection
     private String link;
 
     @ManyToOne
