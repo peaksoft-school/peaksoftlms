@@ -75,11 +75,11 @@ public class LessonApi {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @PostMapping("/{id}/link")
-//    @Operation(summary = "Для добавления link", description = "Позволяет добавить link")
-//    public ResponseEntity<?> saveNewLesson(@PathVariable Long id,
-//                                                @RequestBody String link) {
-//        lessonService.addLink(id, link);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
+    @PostMapping("/{id}/link")
+    @Operation(summary = "Для добавления link", description = "Позволяет добавить link")
+    public ResponseEntity<?> saveNewLesson(@PathVariable Long id,
+                                                @RequestBody String link) {
+        lessonService.addLink(id, link);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
