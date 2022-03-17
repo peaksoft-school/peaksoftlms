@@ -25,8 +25,8 @@ public class TeacherMapper {
     public Teacher teacherRequestToTeacher(TeacherRequest teacherRequest, Teacher teacher) {
         teacher.setFirstName(teacherRequest.getFirstName());
         teacher.setLastName(teacherRequest.getLastName());
-        teacher.setEmail(teacherRequest.getEmail());
-        teacher.setPassword(passwordEncoder.encode(teacherRequest.getPassword()));
+        teacher.getUser().setEmail(teacherRequest.getEmail());
+        teacher.getUser().setPassword(passwordEncoder.encode(teacherRequest.getPassword()));
         teacher.setPhoneNumber(teacherRequest.getPhoneNumber());
         teacher.setImg(teacherRequest.getImg());
         teacher.setSpecialization(teacherRequest.getSpecialization());
@@ -36,7 +36,7 @@ public class TeacherMapper {
     public Teacher teacherUpdate(TeacherRequest teacherRequest, Teacher teacher) {
         teacher.setFirstName(teacherRequest.getFirstName());
         teacher.setLastName(teacherRequest.getLastName());
-        teacher.setEmail(teacherRequest.getEmail());
+        teacher.getUser().setEmail(teacherRequest.getEmail());
         teacher.setPhoneNumber(teacherRequest.getPhoneNumber());
         teacher.setImg(teacherRequest.getImg());
         teacher.setSpecialization(teacherRequest.getSpecialization());

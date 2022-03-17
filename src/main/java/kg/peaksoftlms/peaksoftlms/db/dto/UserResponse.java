@@ -26,7 +26,7 @@ public class UserResponse {
         public UserResponse fromUser(User user) {
             UserResponse userDto = new UserResponse();
             userDto.setId(user.getId());
-            userDto.setRoles(user.getRole());
+            userDto.setRoles(user.getRoleList());
             return userDto;
         }
 }

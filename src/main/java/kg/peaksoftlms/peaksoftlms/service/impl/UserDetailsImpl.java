@@ -30,7 +30,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(User user) {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRole().forEach(role -> {
+        user.getRoleList().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         });
 

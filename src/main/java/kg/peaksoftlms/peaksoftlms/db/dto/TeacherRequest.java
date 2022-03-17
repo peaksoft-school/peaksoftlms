@@ -16,7 +16,7 @@ public class TeacherRequest {
     private String email;
     private String password;
     private String img;
-    private int phoneNumber;
+    private String phoneNumber;
     private String specialization;
 
 }

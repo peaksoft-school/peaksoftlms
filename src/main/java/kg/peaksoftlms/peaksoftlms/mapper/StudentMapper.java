@@ -20,6 +20,12 @@ public class StudentMapper {
     public StudentResponse studentToStudentResponse(Student student) {
         return modelMapper.map(student, StudentResponse.class);
     }
+    public Student studentToStudentResponse(StudentResponse student) {
+        return modelMapper.map(student, Student.class);
+    }
+    public Student studentToStudentResponse(StudentRequest student) {
+        return modelMapper.map(student, Student.class);
+    }
 
     public List<StudentResponse> studentListToStudentResponseList(List<Student> studentList) {
         List<StudentResponse> studentResponseList = new ArrayList<>();
@@ -30,17 +36,12 @@ public class StudentMapper {
     }
 
     public Student studentRequestToStudent(Student student, StudentRequest request) {
-        student.setEmail(request.getEmail());
-        student.setLastName(request.getLastName());
-        student.setFirstName(request.getFirstName());
-        student.setPhoneNumber(request.getPhoneNumber());
-        student.setPassword(passwordEncoder.encode(request.getPassword()));
-//        student.setLearningFormat(request.getLearningFormat());
-        return student;
+        return studentToStudentResponse(request);
     }
 
     public Student updateStudent(Student student, StudentRequest request) {
-        student.setEmail(request.getEmail());
+        student.getUser().setEmail(request.getEmail());
+//        student.setEmail(request.getEmail());
         student.setLastName(request.getLastName());
         student.setFirstName(request.getFirstName());
         student.setPhoneNumber(request.getPhoneNumber());

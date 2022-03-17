@@ -47,6 +47,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student save(Student student) {
+        return studentRepository.save(student);
+    }
+
+    @Override
     public StudentResponse saveNew(StudentRequest request) {
         User user = createUser(request);
         Student student = new Student();

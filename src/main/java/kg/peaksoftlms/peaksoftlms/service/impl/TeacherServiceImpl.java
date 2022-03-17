@@ -45,6 +45,11 @@ public class TeacherServiceImpl implements TeacherService {
         }));
     }
 
+    @Override
+    public Teacher save(Teacher teacher) {
+        return teacherRepository.save(teacher);
+    }
+
     private User createUser(TeacherRequest request) {
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.getRoleByRoleName("ROLE_TEACHER"));
@@ -54,6 +59,8 @@ public class TeacherServiceImpl implements TeacherService {
         newUser.setRole(roles);
         return userRepository.save(newUser);
     }
+
+
 
     @Override
     public TeacherResponse save(TeacherRequest teacherRequest) {

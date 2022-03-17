@@ -52,10 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/welcome").permitAll()
                 .antMatchers("/api/authentication").permitAll()
-                .antMatchers( "/api/test/**").permitAll()
+                .antMatchers( "/api/test/**").hasAnyAuthority("STUDENT", "TEACHER")
 //                .antMatchers("/api/admin/**", "/api/users/**", "/api/teachers/**", "/api/students", "/api/courses/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                .anyRequest().permitAll();
+                .anyRequest().authenticated();
         http.logout().logoutUrl("/api/logout") //URL-адрес, запускающий выход из системы (по умолчанию "/logout").
                 .logoutSuccessUrl("/api/authentication");
 
