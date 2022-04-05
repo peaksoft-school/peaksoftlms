@@ -1,6 +1,6 @@
 package kg.peaksoftlms.peaksoftlms.db.model;
 
-import kg.peaksoftlms.peaksoftlms.aaTest.model.lesson.Lesson;
+import kg.peaksoftlms.peaksoftlms.testPackage.model.lesson.Lesson;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
